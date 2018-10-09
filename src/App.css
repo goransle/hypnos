@@ -22,6 +22,22 @@
   color: #61dafb;
 }
 
+form{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+form input[type="range"]{
+  display: block;
+  margin: 0 auto;
+}
+form input[type="submit"]{
+  display: block;
+  margin: 0 auto;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
