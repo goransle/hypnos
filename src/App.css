@@ -38,6 +38,10 @@ form input[type="submit"]{
   margin: 0 auto;
 }
 
+.logged{
+  background-color: green;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

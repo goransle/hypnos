@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "localforage": "^1.7.2",
     "moment": "^2.22.2",
     "rc-time-picker": "^3.4.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "2.0.3",
-    "react-time-picker": "^2.7.2"
+    "react-time-picker": "^2.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
