@@ -6,8 +6,8 @@
     "localforage": "^1.7.2",
     "moment": "^2.22.2",
     "rc-time-picker": "^3.4.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
     "react-scripts": "2.0.3",
     "react-time-picker": "^2.8.0"
   },

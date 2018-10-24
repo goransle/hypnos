@@ -37,8 +37,19 @@ form input[type="submit"]{
   display: block;
   margin: 0 auto;
 }
+.pastWeek ol{
+  list-style-type: none;
+}
+.pastWeek li{
+  width: 5em;
+  height: 5em;
+  display: inline;
+  padding: 1em;
+  border: 1px solid;
+  border-radius: 100%;
+}
 
-.logged{
+.pastWeek .logged{
   background-color: green;
 }
 
