@@ -4,6 +4,7 @@ import Moment from 'moment';
 
 import Logging from './components/Logging'
 import Days from './components/Days'
+import Trends from './components/Trends'
 
 import localForage from 'localforage'
 
@@ -46,7 +47,8 @@ class App extends Component {
           <h1>Hypnos</h1>
         </header>
         <Days today={this.state.today} dateChange={this.onChange} />
-          <Logging day={this.state.selectedDay} data={this.state.logData} />
+        <Logging day={this.state.selectedDay} data={this.state.logData} />
+        <div className="chart"><Trends today={this.state.today}/></div>
       </div>
     );
   }

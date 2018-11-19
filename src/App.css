@@ -1,3 +1,7 @@
+* {
+  margin:0;
+  padding: 0;
+}
 .App {
   text-align: center;
 }
@@ -23,11 +27,16 @@
 }
 
 form{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  display: relative;
   justify-content: space-between;
   height: 100%;
+  width: 100%;
+}
+form .form-group{
+  padding: 0.5em;
+}
+form label{
+  margin-right: 0.5em;
 }
 form input[type="range"]{
   display: block;
@@ -37,14 +46,20 @@ form input[type="submit"]{
   display: block;
   margin: 0 auto;
 }
+.pastWeek{
+  margin:0;
+  padding: 0;
+}
 .pastWeek ol{
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 .pastWeek li{
   display: inline-block;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
   padding: 1em;
   margin: 0.5em;
   text-align: center;
@@ -54,6 +69,11 @@ form input[type="submit"]{
 
 .pastWeek .logged{
   background-color: green;
+}
+
+.chart{
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 @keyframes App-logo-spin {

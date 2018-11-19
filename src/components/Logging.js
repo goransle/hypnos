@@ -38,7 +38,7 @@ class Logging extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <div>
-          <span>
+          <div className="form-group">
             <label>I went to bed at</label>
             <input
               type="time"
@@ -46,8 +46,9 @@ class Logging extends Component {
               onChange={this.handleChange}
               defaultValue={this.props.data.bedtime}
             />
-          </span>
-          <span>
+          </div>
+          <br/>
+          <div className="form-group">
             <label>and woke up</label>
             <input
               type="time"
@@ -55,14 +56,17 @@ class Logging extends Component {
               onChange={this.handleChange}
               defaultValue={this.props.data.waketime}
             />
-          </span>
+          </div>
+          <div className="form-group"></div>
           <input
             name="rating"
             type="range"
             value={this.props.data.rating}
             onChange={this.handleChange}
           />
-          <input type="submit" value="Save" />
+          <div className="form-group">
+            <input type="submit" value="Save" />
+          </div>
         </div>
       </form>
     );
