@@ -81,8 +81,8 @@ export default class Trends extends Component {
         .format("L");
       days.push(day);
     }
-    var ratings = [0,0,0,0,0,0,0];
-    var hoursSlept = [0,0,0,0,0,0,0]; 
+    var ratings = [NaN,NaN,NaN,NaN,NaN,NaN,NaN];
+    var hoursSlept = [null,null,null,null,null,null,null]; 
     localForage
       .iterate(function(value, key, iterationNumber) {
         //console.log([key, value]);
