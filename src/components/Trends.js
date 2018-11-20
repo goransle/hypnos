@@ -9,23 +9,9 @@ export default class Trends extends Component {
 
     this.state = {
       today: Moment(this.props.today),
+      average: 5,
       options: {
         annotations: {
-          yaxis: [
-            {
-              y: 5,
-              borderColor: "#00E396",
-              label: {
-                borderColor: "#00E396",
-                offsetX: -100,
-                style: {
-                  color: "#fff",
-                  background: "#00E396"
-                },
-                text: "Average?"
-              }
-            }
-          ],
           // xaxis: [
           //   {
           //     x: new Date("16 Nov 2018").getTime(),
@@ -96,7 +82,7 @@ export default class Trends extends Component {
       days.push(day);
     }
     var ratings = [0,0,0,0,0,0,0];
-    var hoursSlept = [0,0,0,0,0,0,0];
+    var hoursSlept = [0,0,0,0,0,0,0]; 
     localForage
       .iterate(function(value, key, iterationNumber) {
         //console.log([key, value]);
@@ -112,14 +98,37 @@ export default class Trends extends Component {
         }
       })
       .then( () => {
+        const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+        const result = average( hoursSlept );
+        console.log(result)
         this.setState({
           options: {
             ...this.state.options,
-            xaxis: { ...this.state.options.xaxis, categories: days }
+            xaxis: { ...this.state.options.xaxis, categories: days },
+            annotations:{
+              ...this.state.options.annotations,
+              yaxis: [
+                {
+                  y: result,
+                  borderColor: "#00E396",
+                  label: {
+                    borderColor: "#00E396",
+                    offsetX: -100,
+                    style: {
+                      color: "#fff",
+                      background: "#00E396"
+                    },
+                    text: "Average?"
+                  }
+                }
+              ]
+              
+            }
           }
         })
         this.setState({
-          series: [{name: "Rating", data: ratings}, {name: "Hours slept", data: hoursSlept}]
+          series: [{name: "Rating", data: ratings}, {name: "Hours slept", data: hoursSlept}], 
+          average: result
         })
       })
   }
