@@ -7,7 +7,7 @@ class Days extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      today: Moment(this.props.today),
+      today: this.props.today,
       log: []
     }
 
@@ -21,6 +21,7 @@ class Days extends Component {
   handleClick(e) {
     var day = e.target.getAttribute('day');
     this.props.dateChange(day);
+    this.setState({selected: e.target.getAttribute('day')});
     console.log(e.target.getAttribute('day'))
   }
   render() {
@@ -34,11 +35,14 @@ class Days extends Component {
         <p>Today is {this.state.today.format("dddd")}</p>
         <ol>
         {days.map((day, index) => {
-
+          var classes = [];
           if (this.state.log && this.state.log.includes(day)) {
-            return <li key={index} day={day} onClick={this.handleClick} className="logged">{Moment(day).format('ddd')}</li>
+            classes.push("logged")
           }
-          return <li key={index} day={day}onClick={this.handleClick} className="">{Moment(day).format('ddd')}</li>
+          if (day === this.props.selected){
+            classes.push(" selected")
+          }
+          return <li key={index} day={day}onClick={this.handleClick} className={classes}>{Moment(day, "MM/DD/YYYY").format('ddd')}</li>
         })}
         </ol>
       </div>
