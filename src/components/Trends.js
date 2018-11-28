@@ -83,17 +83,24 @@ export default class Trends extends Component {
     }
     var ratings = [NaN,NaN,NaN,NaN,NaN,NaN,NaN];
     var hoursSlept = [null,null,null,null,null,null,null]; 
+    var midpoints = []
     localForage
       .iterate(function(value, key, iterationNumber) {
         //console.log([key, value]);
         if(days.includes(key)) {
           ratings[days.indexOf(key)] = Number(value.rating/10)
-          var x = Moment(value.bedtime, "HH:mm").diff(Moment(value.waketime, "HH:mm"), "hours")
-          if(x>=0){
-            hoursSlept[days.indexOf(key)] = 24-x;
+          var timeslept = Moment(value.bedtime, "HH:mm").diff(Moment(value.waketime, "HH:mm"), "hours");
+          console.log(timeslept)
+          if(timeslept>=0){
+            hoursSlept[days.indexOf(key)] = 24-timeslept;
+            var duration = Moment.duration({minutes: ((24-timeslept)/2)*60})
+            midpoints[days.indexOf(key)] = Moment(value.waketime, "HH:mm").subtract(duration).format("HH:mm");
           }
           else{
-            hoursSlept[days.indexOf(key)] = -x;
+            hoursSlept[days.indexOf(key)] = -timeslept;
+            var duration = Moment.duration({minutes: Number((-timeslept/2)*60)})
+            console.log(duration)
+            midpoints[days.indexOf(key)] = Moment(value.waketime, "HH:mm").subtract(duration).format("HH:mm");
           }
         }
       })
@@ -101,6 +108,7 @@ export default class Trends extends Component {
         const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
         const result = average( hoursSlept );
         console.log(result)
+        console.log(midpoints)
         this.setState({
           options: {
             ...this.state.options,
@@ -127,7 +135,9 @@ export default class Trends extends Component {
           }
         })
         this.setState({
-          series: [{name: "Rating", data: ratings}, {name: "Hours slept", data: hoursSlept}], 
+          series: [{name: "Rating", data: ratings}, 
+          {name: "Midpoint", data: midpoints}, 
+          {name: "Hours slept", data: hoursSlept}], 
           average: result
         })
       })

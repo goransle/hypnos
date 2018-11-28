@@ -36,7 +36,6 @@ class App extends Component {
     localForage.getItem(date).then((item)=>{
       if(item){
         this.setState({logData: item});
-        console.log(item)
       }
     })
   }

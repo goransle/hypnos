@@ -42,7 +42,7 @@ class Days extends Component {
           if (day === this.props.selected){
             classes.push(" selected")
           }
-          return <li key={index} day={day}onClick={this.handleClick} className={classes}>{Moment(day, "MM/DD/YYYY").format('ddd')}</li>
+          return <li key={index} day={day} onClick={this.handleClick} className={classes}>{Moment(day, "MM/DD/YYYY").format('ddd')}</li>
         })}
         </ol>
       </div>
