@@ -9,7 +9,7 @@ import Trends from './components/Trends'
 import localForage from 'localforage'
 
 const today = Moment();
-var defaultData = {bedtime:"23:00", waketime: '07:25', rating:50};
+var defaultData = {bedtime:"23:00", waketime: '07:25', rating:5};
 
 class App extends Component {
   constructor(props) {
@@ -25,6 +25,7 @@ class App extends Component {
 
   componentDidMount(){
     this.setState({logData: defaultData});
+    this.onChange(this.state.selectedDay)
   }
 
   onChange(date) {
@@ -40,6 +41,10 @@ class App extends Component {
     })
   }
 
+  inputHandler = (object) =>{
+    localForage.setItem(this.state.selectedDay, object);
+  }
+
   render() {
     return (
       <div className="App">
@@ -47,7 +52,7 @@ class App extends Component {
           <h1>Hypnos</h1>
         </header>
         <Days today={this.state.today} selected={this.state.selectedDay} dateChange={this.onChange} />
-        <Logging day={this.state.selectedDay} data={this.state.logData} />
+        <Logging day={this.state.selectedDay} data={this.state.logData} inputHandler={this.inputHandler} />
         <div className="chart"><Trends today={this.state.today}/></div>
       </div>
     );
