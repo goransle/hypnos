@@ -10,46 +10,7 @@ export default class Trends extends Component {
     this.state = {
       today: Moment(this.props.today),
       average: 5,
-      options: {
-        annotations: {
-          // xaxis: [
-          //   {
-          //     x: new Date("16 Nov 2018").getTime(),
-          //     borderColor: "#FEB019",
-          //     label: {
-          //       borderColor: "#FEB019",
-          //       style: {
-          //         color: "#fff",
-          //         background: "#FEB019"
-          //       },
-          //       orientation: "horizontal",
-          //       text: "X Axis Anno Horizonal"
-          //     }
-          //   }
-          // ],
-          points: [
-            {
-              x: new Date("17 Nov 2018").getTime(),
-              y: 3,
-              marker: {
-                size: 6,
-                fillColor: "#fff",
-                strokeColor: "#2698FF",
-                radius: 2
-              },
-              label: {
-                borderColor: "#FF4560",
-                offsetY: 0,
-                style: {
-                  color: "#fff",
-                  background: "#FF4560"
-                },
-      
-                text: "Very important"
-              }
-            }
-          ]
-        },      
+      options: {     
         chart: {
           id: "apexchart-example"
         },
@@ -67,9 +28,13 @@ export default class Trends extends Component {
       },
       series: [
         {
-          name: "series-1",
+          name: "Rating",
           data: []
-        }
+        },
+        {
+          name: "Time Slept",
+          data: []
+        },
       ]
     };
   }
@@ -110,33 +75,13 @@ export default class Trends extends Component {
         this.setState({
           options: {
             ...this.state.options,
-            xaxis: { ...this.state.options.xaxis, categories: days },
-            annotations:{
-              ...this.state.options.annotations,
-              yaxis: [
-                {
-                  y: result,
-                  borderColor: "#00E396",
-                  label: {
-                    borderColor: "#00E396",
-                    offsetX: -100,
-                    style: {
-                      color: "#fff",
-                      background: "#00E396"
-                    },
-                    text: "Average?"
-                  }
-                }
-              ]
-              
-            }
+            xaxis: { ...this.state.options.xaxis, categories: days }
           }
         })
         this.setState({
           series: [{name: "Rating", data: ratings}, 
           {name: "Midpoint", data: midpoints}, 
-          {name: "Hours slept", data: hoursSlept}], 
-          average: result
+          {name: "Hours slept", data: hoursSlept}]
         })
       })
   }
