@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import Moment from 'moment';
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import Logging from './components/Logging'
 import Days from './components/Days'
 import Trends from './components/Trends'
+import Header from './components/Header'
 
 import localForage from 'localforage'
 
 const today = Moment();
-var defaultData = {bedtime:"23:00", waketime: '07:25', rating:5};
+var defaultData = { bedtime: "23:00", waketime: '07:25', rating: 5 };
 
 class App extends Component {
   constructor(props) {
@@ -23,38 +26,44 @@ class App extends Component {
   }
 
 
-  componentDidMount(){
-    this.setState({logData: defaultData});
+  componentDidMount() {
+    this.setState({ logData: defaultData });
     this.onChange(this.state.selectedDay)
   }
 
   onChange(date) {
     console.log(date)
-    this.setState({ selectedDay: date});
+    this.setState({ selectedDay: date });
     //setting default data
-    this.setState({logData: defaultData});
+    this.setState({ logData: defaultData });
     //gets stuff from storage
-    localForage.getItem(date).then((item)=>{
-      if(item){
-        this.setState({logData: item});
+    localForage.getItem(date).then((item) => {
+      if (item) {
+        this.setState({ logData: item });
       }
     })
   }
 
-  inputHandler = (object) =>{
+  inputHandler = (object) => {
     localForage.setItem(this.state.selectedDay, object);
   }
 
   render() {
     return (
-      <div className="App">
-        <header>
-          <h1>Hypnos</h1>
-        </header>
-        <Days today={this.state.today} selected={this.state.selectedDay} dateChange={this.onChange} />
-        <Logging day={this.state.selectedDay} data={this.state.logData} inputHandler={this.inputHandler} />
-        <div className="chart"><Trends today={this.state.today}/></div>
-      </div>
+      <Router>
+        <div className="App">
+          <Header />
+          <Route exact path="/" render={props => (
+            <React.Fragment>
+              <Days today={this.state.today} selected={this.state.selectedDay} dateChange={this.onChange} />
+              <Logging day={this.state.selectedDay} data={this.state.logData} inputHandler={this.inputHandler} />
+            </React.Fragment>
+          )} />
+        <Route path="/charts" render={props =>(
+          <div className="chart"><Trends today={this.state.today} /></div>
+        )} />
+        </div>
+      </Router>
     );
   }
 }

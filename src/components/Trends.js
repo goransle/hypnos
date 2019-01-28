@@ -81,9 +81,9 @@ export default class Trends extends Component {
         .format("L");
       days.push(day);
     }
-    var ratings = [NaN,NaN,NaN,NaN,NaN,NaN,NaN];
-    var hoursSlept = [null,null,null,null,null,null,null]; 
-    var midpoints = []
+    var ratings = [null];
+    var hoursSlept = [0]; 
+    var midpoints = [null]
     localForage
       .iterate(function(value, key, iterationNumber) {
         //console.log([key, value]);
@@ -102,14 +102,11 @@ export default class Trends extends Component {
             duration = Moment.duration({minutes: Number(-(timeslept/2))})
           }
           midpoints[days.indexOf(key)] = Moment(value.waketime, "HH:mm").subtract(duration).format("HH:mm");
-          console.log(midpoints)
         }
       })
       .then( () => {
         const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
-        const result = average( hoursSlept );
-        console.log(result)
-        console.log(midpoints)
+        const result = average( ratings );
         this.setState({
           options: {
             ...this.state.options,
