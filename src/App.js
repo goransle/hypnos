@@ -8,6 +8,7 @@ import Logging from './components/Logging'
 import Days from './components/Days'
 import Trends from './components/Trends'
 import Header from './components/Header'
+import History from './components/History'
 
 import localForage from 'localforage'
 
@@ -57,6 +58,7 @@ class App extends Component {
             <React.Fragment>
               <Days today={this.state.today} selected={this.state.selectedDay} dateChange={this.onChange} />
               <Logging day={this.state.selectedDay} data={this.state.logData} inputHandler={this.inputHandler} />
+              <History />
             </React.Fragment>
           )} />
         <Route path="/charts" render={props =>(

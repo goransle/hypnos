@@ -80,6 +80,24 @@ form input[type="submit"]{
   margin: 0 auto;
 }
 
+.history{
+  background-color: steelblue;
+}
+.history li{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+}
+.history header{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+  font-weight: bold;
+}
+.history li span{
+  margin: 1em;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
