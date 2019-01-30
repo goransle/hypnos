@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TimePicker from 'react-time-picker';
 
 class Logging extends Component {
   constructor(props) {
@@ -23,6 +24,13 @@ class Logging extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleBedtime = value =>{
+    this.setState({ bedtime: value })
+  }
+  handleWaketime = value =>{
+    this.setState({ waketime: value })
+  }
+
   onSubmit = form => {
     this.props.inputHandler(this.state)
   };
@@ -33,21 +41,24 @@ class Logging extends Component {
         <div>
           <div className="form-group">
             <label>I went to bed at</label>
-            <input
-              type="time"
+            <TimePicker
               name="bedtime"
-              onChange={this.handleChange}
-              defaultValue={data.bedtime}
+              onChange={this.handleBedtime}
+              value={data.bedtime}
+              disableClock={true}
+              locale={"en-GB"}
             />
           </div>
           <br/>
           <div className="form-group">
             <label>and woke up</label>
-            <input
+            <TimePicker
               type="time"
               name="waketime"
-              onChange={this.handleChange}
-              defaultValue={data.waketime}
+              onChange={this.handleWaketime}
+              value={data.waketime}
+              disableClock={true}
+              locale={"en-GB"}
             />
           </div>
           <div className="form-group">
