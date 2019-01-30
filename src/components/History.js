@@ -22,12 +22,17 @@ export default class History extends Component {
     var ratings = [null];
     var hoursSlept = [0]; 
     var midpoints = [null]
+    var times = []
     localForage
       .iterate(function(value, key, iterationNumber) {
         //console.log([key, value]);
         if(days.includes(key)) {
           ratings[days.indexOf(key)] = Number(value.rating)
-          var timeslept = Moment(value.bedtime, "HH:mm").diff(Moment(value.waketime, "HH:mm"), "minutes");
+          var bedtime = Moment(value.bedtime, "HH:mm")
+          var waketime = Moment(value.waketime, "HH:mm")
+          times[days.indexOf(key)] = {bedtime: bedtime.format("HH:mm"), waketime: waketime.format("HH:mm")}
+          console.log(times)
+          var timeslept = bedtime.diff(waketime, "minutes");
           var duration;
           if(timeslept > 0){
             hoursSlept[days.indexOf(key)] = Number(24 - (timeslept / 60)).toFixed(1);
@@ -46,7 +51,7 @@ export default class History extends Component {
         const averageRating = average( ratings ).toFixed(1);
         const averageDuration = average(hoursSlept).toFixed(1)
           var dayObjects = days.map( (day, i) =>{
-            return {"date": day, sleepDuration: hoursSlept[i], rating: ratings[i]}
+            return {"date": day, sleepDuration: hoursSlept[i], rating: ratings[i], midpoint: midpoints[i], time: times[i]}
           })
         this.setState({
             days : dayObjects,
@@ -58,18 +63,24 @@ export default class History extends Component {
   render() {
     return (
         <table className="history">
-            <th><span>Date</span><span>Duration</span><span>Rating</span></th>
-            <tr><td>Average: </td><td>{this.state.averageDuration}</td><td>{this.state.averageRating}</td></tr>
+          <tbody>
+            <tr><th>Date</th><th>Bedtime</th><th>Waketime</th><th>Duration</th><th>Rating</th></tr>
+            <tr><td>Average: </td><td></td><td></td><td>{this.state.averageDuration}</td><td>{this.state.averageRating}</td></tr>
             {this.state.days.map( (day, key) =>{
+              if(day.time){
                 return (
                     <tr key={key}>
                         <td>{day.date}</td>
+                        <td>{day.time.bedtime}</td>
+                        <td>{day.time.waketime}</td>
                         <td>{day.sleepDuration}</td>
                         <td>{day.rating}</td>
                     </tr>
                 )
+              }
             })
         }
+        </tbody>
         </table>
     );
   }

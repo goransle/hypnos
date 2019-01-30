@@ -84,17 +84,18 @@ form input[type="submit"]{
   background-color: steelblue;
   margin: 0 auto;
 }
-.history tr{
+/* .history tr{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 5px;
 }
 .history th{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 5px;
   font-weight: bold;
-}
+  text-align: center
+} */
 .history td{
   margin: 1em;
 }
