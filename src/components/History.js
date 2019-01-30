@@ -35,16 +35,16 @@ export default class History extends Component {
             midpoints[days.indexOf(key)] = Moment(value.waketime, "HH:mm").subtract(duration).format("HH:mm");
           }
           else{
-            hoursSlept[days.indexOf(key)] = Number(-(timeslept / 60)).toFixed(1);
+            hoursSlept[days.indexOf(key)] = Number(-(timeslept / 60).toFixed(1));
             duration = Moment.duration({minutes: Number(-(timeslept/2))})
           }
           midpoints[days.indexOf(key)] = Moment(value.waketime, "HH:mm").subtract(duration).format("HH:mm");
         }
       })
       .then( () => {
-        const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
-        const averageRating = average( ratings );
-        const averageDuration = average(hoursSlept)
+        const average = arr => arr.reduce( ( p, c ) => Number(p) + Number(c), 0 ) / arr.length;
+        const averageRating = average( ratings ).toFixed(1);
+        const averageDuration = average(hoursSlept).toFixed(1)
           var dayObjects = days.map( (day, i) =>{
             return {"date": day, sleepDuration: hoursSlept[i], rating: ratings[i]}
           })
