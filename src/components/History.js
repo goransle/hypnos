@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import localForage from "localforage";
 import Moment from "moment";
-import { link } from "fs";
 
 export default class History extends Component {
   constructor(props) {
@@ -43,29 +42,35 @@ export default class History extends Component {
         }
       })
       .then( () => {
+        const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+        const averageRating = average( ratings );
+        const averageDuration = average(hoursSlept)
           var dayObjects = days.map( (day, i) =>{
             return {"date": day, sleepDuration: hoursSlept[i], rating: ratings[i]}
           })
         this.setState({
-            days : dayObjects
+            days : dayObjects,
+            averageRating,
+            averageDuration
         })
       })
   }
   render() {
     return (
-        <ul className="history">
-            <header><span>Date</span><span>Duration</span><span>Rating</span></header>
+        <table className="history">
+            <th><span>Date</span><span>Duration</span><span>Rating</span></th>
+            <tr><td>Average: </td><td>{this.state.averageDuration}</td><td>{this.state.averageRating}</td></tr>
             {this.state.days.map( (day, key) =>{
                 return (
-                    <li key={key}>
-                        <span>{day.date}</span>
-                        <span>{day.sleepDuration}</span>
-                        <span>{day.rating}</span>
-                    </li>
+                    <tr key={key}>
+                        <td>{day.date}</td>
+                        <td>{day.sleepDuration}</td>
+                        <td>{day.rating}</td>
+                    </tr>
                 )
             })
         }
-        </ul>
+        </table>
     );
   }
 }

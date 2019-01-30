@@ -82,19 +82,20 @@ form input[type="submit"]{
 
 .history{
   background-color: steelblue;
+  margin: 0 auto;
 }
-.history li{
+.history tr{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 5px;
 }
-.history header{
+.history th{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 5px;
   font-weight: bold;
 }
-.history li span{
+.history td{
   margin: 1em;
 }
 
