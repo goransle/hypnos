@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import TimePicker from 'react-time-picker';
 
+import {
+	CircularInput,
+	CircularTrack,
+	CircularProgress,
+  CircularThumb,
+  useCircularInputContext
+} from 'react-circular-input';
+
 class Logging extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +32,11 @@ class Logging extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleCircle = (e, n) =>{
+    console.log(e)
+    this.setState({rating: Math.round(e * 10)})
+  }
+
   handleBedtime = value =>{
     this.setState({ bedtime: value })
   }
@@ -34,8 +47,20 @@ class Logging extends Component {
   onSubmit = form => {
     this.props.inputHandler(this.state)
   };
+  
   render() {
     var {data} = this.props
+    
+    const CenterText = () => {
+      const {value} = useCircularInputContext()
+    
+      return (
+        <text x={100} y={100} textAnchor="middle" dy="0.3em" fontWeight="bold">
+			    {Math.round(value * 10)}
+		    </text>
+      )
+    }
+
     return (
       <form onSubmit={this.onSubmit}>
         <div>
@@ -61,6 +86,12 @@ class Logging extends Component {
               locale={"en-GB"}
             />
           </div>
+          <CircularInput value={this.state.rating / 10} onChange={this.handleCircle}>
+            <CircularTrack />
+            <CircularProgress />
+            <CircularThumb />
+            <CenterText />
+          </CircularInput>
           <div className="form-group">
           <input
             name="rating"
