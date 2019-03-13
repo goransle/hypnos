@@ -134,7 +134,7 @@ class Logging extends Component {
             </div>
           </div>
           <div className="form-group">
-            <input type="submit" value="Save" />
+            <input type="submit" className={"btn btn-primary btn-lg"} value="Save" />
           </div>
         </div>
       </form>
