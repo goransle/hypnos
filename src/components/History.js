@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import localForage from "localforage";
 import Moment from "moment";
 
+import { BarChart } from "reaviz";
+
 export default class History extends Component {
   constructor(props) {
     super(props);
@@ -53,6 +55,7 @@ export default class History extends Component {
           var dayObjects = days.map( (day, i) =>{
             return {"date": day, sleepDuration: hoursSlept[i], rating: ratings[i], midpoint: midpoints[i], time: times[i]}
           })
+
         this.setState({
             days : dayObjects,
             averageRating,
@@ -61,7 +64,32 @@ export default class History extends Component {
       })
   }
   render() {
+    const ratingsList = this.state.days.filter((day) =>{
+      if(day.rating === undefined){
+        return false
+      }
+      return true
+    }).map( (day) =>{
+        console.log(day)
+        return (
+            {key:day.date, data: day.rating}
+        )
+    })
+
+    const durationList = this.state.days.filter((day) =>{
+      if(day.sleepDuration === undefined){
+        return false
+      }
+      return true
+    }).map( (day) =>{
+        console.log(day)
+        return (
+            {key:day.date, data: day.sleepDuration}
+        )
+    })
+    
     return (
+      <div>
         <table className="history">
           <tbody>
             <tr><th>Date</th><th>Bedtime</th><th>Waketime</th><th>Duration</th><th>Rating</th></tr>
@@ -82,6 +110,11 @@ export default class History extends Component {
         }
         </tbody>
         </table>
+        <h3>Ratings</h3>
+        <BarChart width={350} height={250} data={ratingsList} />
+        <h3>Duration</h3>
+        <BarChart width={350} height={250} data={durationList} />
+        </div>
     );
   }
 }

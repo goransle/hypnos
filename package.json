@@ -16,7 +16,8 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.8",
-    "react-time-picker": "^3.3.0"
+    "react-time-picker": "^3.3.0",
+    "reaviz": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
