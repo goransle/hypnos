@@ -58,11 +58,10 @@ class App extends Component {
             <React.Fragment>
               <Days today={this.state.today} selected={this.state.selectedDay} dateChange={this.onChange} />
               <Logging day={this.state.selectedDay} data={this.state.logData} inputHandler={this.inputHandler} />
-              <History />
             </React.Fragment>
           )} />
         <Route path="/charts" render={props =>(
-          <div className="chart"><Trends today={this.state.today} /></div>
+          <div className="chart"><History/></div>
         )} />
         </div>
       </Router>
