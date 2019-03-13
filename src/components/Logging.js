@@ -74,9 +74,9 @@ class Logging extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <div>
           <div className="form-group">
-            <label>I went to bed at</label>
+          <div className="input-group-lg mb-3">
+            <label className="input">I went to bed at</label>
             <TimePicker
               name="bedtime"
               onChange={this.handleBedtime}
@@ -84,6 +84,8 @@ class Logging extends Component {
               disableClock={true}
               locale={"en-GB"}
             />
+            </div>
+              <div className="input-group-lg">
             <label style={{"paddingLeft": "1em"}}>and woke up</label>
             <TimePicker
               type="time"
@@ -93,6 +95,7 @@ class Logging extends Component {
               disableClock={true}
               locale={"en-GB"}
             />
+            </div>
           </div>
           <div className="form-group">
           <CircularInput value={this.state.rating / 10} onChange={this.handleCircle}>
@@ -102,7 +105,7 @@ class Logging extends Component {
             <CenterText />
           </CircularInput>
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
           <input
             name="rating"
             type="range"
@@ -124,9 +127,9 @@ class Logging extends Component {
             <option>9</option>
             <option>10</option>
           </datalist>
-          </div>
+          </div> */}
           <div className="form-group">
-            <label htmlFor="">Did you have trouble with getting to sleep?</label>
+            <label htmlFor="">Did you have trouble getting to sleep?</label>
             <br/>
             <div className="btn-group" data-toggle="buttons">
             <button type="button" className={"btn btn-primary btn-lg" + (this.state.troubleSleeping ? '' : ' active')} onClick={this.handleClick}>No</button>
@@ -136,7 +139,6 @@ class Logging extends Component {
           <div className="form-group">
             <input type="submit" className={"btn btn-primary btn-lg"} value="Save" />
           </div>
-        </div>
       </form>
     );
   }
