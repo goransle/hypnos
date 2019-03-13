@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import localForage from "localforage";
 import Moment from "moment";
 
-import { BarChart } from "reaviz";
+import Graphs from "./Graphs"
 
 export default class History extends Component {
   constructor(props) {
@@ -63,31 +63,7 @@ export default class History extends Component {
         })
       })
   }
-  render() {
-    const ratingsList = this.state.days.filter((day) =>{
-      if(day.rating === undefined){
-        return false
-      }
-      return true
-    }).map( (day) =>{
-        console.log(day)
-        return (
-            {key:day.date, data: day.rating}
-        )
-    })
-
-    const durationList = this.state.days.filter((day) =>{
-      if(day.sleepDuration === undefined){
-        return false
-      }
-      return true
-    }).map( (day) =>{
-        console.log(day)
-        return (
-            {key:day.date, data: day.sleepDuration}
-        )
-    })
-    
+  render() {  
     return (
       <div>
         <table className="history">
@@ -110,10 +86,7 @@ export default class History extends Component {
         }
         </tbody>
         </table>
-        <h3>Ratings</h3>
-        <BarChart width={350} height={250} data={ratingsList} />
-        <h3>Duration</h3>
-        <BarChart width={350} height={250} data={durationList} />
+        <Graphs days={this.state.days}/>
         </div>
     );
   }
