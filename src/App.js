@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Logging from './components/Logging'
 import Days from './components/Days'
-import Trends from './components/Trends'
 import Header from './components/Header'
 import History from './components/History'
 
@@ -60,8 +59,8 @@ class App extends Component {
               <Logging day={this.state.selectedDay} data={this.state.logData} inputHandler={this.inputHandler} />
             </React.Fragment>
           )} />
-        <Route path="/charts" render={props =>(
-          <div className="chart"><History/></div>
+        <Route path="/history" render={props =>(
+          <History/>
         )} />
         </div>
       </Router>

@@ -7,7 +7,7 @@ export default class Header extends Component {
       <Fragment>
         <header>
           <h1>Hypnos</h1>
-          <Link style={linkStyle} to="/">Home</Link> | <Link style={linkStyle} to="/charts">Charts</Link>
+          <Link style={linkStyle} to="/">Home</Link> | <Link style={linkStyle} to="/history">History</Link>
         </header>
       </Fragment>
     )
