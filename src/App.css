@@ -57,10 +57,9 @@ form input[type="submit"]{
 }
 .pastWeek li{
   display: inline-block;
-  width: 2em;
-  height: 2em;
-  line-height: 2em;
-  padding: 1em;
+  width: 3em;
+  height: 3em;
+  line-height: 3em;
   margin: 0.5em;
   text-align: center;
   border: 1px solid;
