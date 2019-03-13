@@ -84,7 +84,7 @@ class Logging extends Component {
               disableClock={true}
               locale={"en-GB"}
             />
-            <label style={{"padding-left": "1em"}}>and woke up</label>
+            <label style={{"paddingLeft": "1em"}}>and woke up</label>
             <TimePicker
               type="time"
               name="waketime"
