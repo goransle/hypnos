@@ -1,4 +1,4 @@
-import React, {useRef } from "react";
+import React, { useRef, SVGProps } from "react";
 import Moment from "moment";
 import {
   CircularInput,
@@ -60,19 +60,27 @@ export default function ClockInput(props) {
       />
     );
   };
-  const CustomThumb = props => {
+  const CustomThumb = SVGProps => {
     const {
       getPointFromValue,
       isFocused,
       setFocused
     } = useCircularInputContext();
-    const { x, y } = getPointFromValue();
 
-    const ref = useRef(null);
-    const { isDragging } = useCircularDrag(ref)
+    const point = getPointFromValue()
+	if (!point) return null
+	const { x, y } = point
+
+    const ref = useRef(SVGCircleElement | null);
+    const { isDragging } = useCircularDrag(ref);
 
     return (
-      <circle r={isFocused || isDragging ? 23 : 20} {...props} ref={ref} cx={x} cy={y} />
+      <circle
+        r={isFocused || isDragging ? 23 : 20}
+        ref={ref}
+        cx={x}
+        cy={y}
+      />
     );
   };
   return (
@@ -82,9 +90,7 @@ export default function ClockInput(props) {
           Moment(props.waketime, "hh:mm").hours() / 12 +
           Moment(props.waketime, "hh:mm").minutes() / 720
         }
-        classID={"main"}
-        style={{ position: "absolute" }}
-        onChange={props.handleBedtime}
+        onChange={props.handleWaketime}
       >
         <CircularTrack />
         <CustomProgress
@@ -97,25 +103,20 @@ export default function ClockInput(props) {
             Moment(props.bedtime, "hh:mm").minutes() / 720
           }
         />
-        <CustomThumb
-          style={{zIndex:100}}
-        />
+        <CircularThumb />
         <CenterText
           end={Moment(props.waketime, "hh:mm")}
           start={Moment(props.bedtime, "hh:mm")}
         />
         <CircularInput
-        value={
-          Moment(props.bedtime, "hh:mm").hours() / 12 +
-          Moment(props.bedtime, "hh:mm").minutes() / 720
-        }
-        style={{ position: "absolute" }}
-        onChange={props.handleWaketime}
-      >
-        <CustomThumb
-          style={{zIndex:0}}
-        />
-      </CircularInput>
+          value={
+            Moment(props.bedtime, "hh:mm").hours() / 12 +
+            Moment(props.bedtime, "hh:mm").minutes() / 720
+          }
+          onChange={props.handleBedtime}
+        >
+          <CircularThumb />
+        </CircularInput>
       </CircularInput>
     </React.Fragment>
   );
