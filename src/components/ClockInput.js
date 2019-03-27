@@ -67,56 +67,51 @@ export default function ClockInput(props) {
       setFocused
     } = useCircularInputContext();
 
-    const point = getPointFromValue()
-	if (!point) return null
-	const { x, y } = point
+    const point = getPointFromValue();
+    if (!point) return null;
+    const { x, y } = point;
 
     const ref = useRef(SVGCircleElement | null);
     const { isDragging } = useCircularDrag(ref);
 
     return (
-      <circle
-        r={isFocused || isDragging ? 23 : 20}
-        ref={ref}
-        cx={x}
-        cy={y}
-      />
+      <circle r={isFocused || isDragging ? 23 : 20} ref={ref} cx={x} cy={y} />
     );
   };
   return (
     <React.Fragment>
       <CircularInput
         value={
-          Moment(props.waketime, "hh:mm").hours() / 12 +
-          Moment(props.waketime, "hh:mm").minutes() / 720
+          Moment(props.bedtime, "hh:mm").hours() / 12 +
+          Moment(props.bedtime, "hh:mm").minutes() / 720
         }
-        onChange={props.handleWaketime}
+        onChange={props.handleBedtime}
       >
-        <CircularTrack />
-        <CustomProgress
-          end={
+        <CircularInput
+          value={
             Moment(props.waketime, "hh:mm").hours() / 12 +
             Moment(props.waketime, "hh:mm").minutes() / 720
           }
-          start={
-            Moment(props.bedtime, "hh:mm").hours() / 12 +
-            Moment(props.bedtime, "hh:mm").minutes() / 720
-          }
-        />
-        <CircularThumb />
-        <CenterText
-          end={Moment(props.waketime, "hh:mm")}
-          start={Moment(props.bedtime, "hh:mm")}
-        />
-        <CircularInput
-          value={
-            Moment(props.bedtime, "hh:mm").hours() / 12 +
-            Moment(props.bedtime, "hh:mm").minutes() / 720
-          }
-          onChange={props.handleBedtime}
+          onChange={props.handleWaketime}
         >
+          <CircularTrack />
+          <CustomProgress
+            end={
+              Moment(props.waketime, "hh:mm").hours() / 12 +
+              Moment(props.waketime, "hh:mm").minutes() / 720
+            }
+            start={
+              Moment(props.bedtime, "hh:mm").hours() / 12 +
+              Moment(props.bedtime, "hh:mm").minutes() / 720
+            }
+          />
           <CircularThumb />
+          <CenterText
+            end={Moment(props.waketime, "hh:mm")}
+            start={Moment(props.bedtime, "hh:mm")}
+          />
         </CircularInput>
+        <CircularThumb style={{zIndex:100, position:"relative"}} />
       </CircularInput>
     </React.Fragment>
   );

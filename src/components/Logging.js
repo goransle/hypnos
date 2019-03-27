@@ -34,14 +34,15 @@ class Logging extends Component {
     var minutes = Moment.duration(e*12, "hours").minutes()
 
     console.log(`${hours}:${minutes}`)
+    var timeString = Moment(`${hours}:${minutes}`, "H:m").format("HH:mm")
 
     if(!isNaN(e))
-      this.setState({waketime: `${hours}:${minutes}`})
+      this.setState({waketime: timeString})
   };
   handleCustom = (e) => {
     console.log(e)
     if(e > 1){
-      var hours = Moment.duration(((1 - e)*12), "hours").hours()
+      var hours = Moment.duration((-(1 - e)*12), "hours").hours()
       var minutes = Moment.duration(e*12, "hours").minutes()
     }
     else{
@@ -49,10 +50,10 @@ class Logging extends Component {
       var minutes = Moment.duration(e*12, "hours").minutes()
     }
 
-    console.log(`${hours}:${minutes}`)
+    var timeString = Moment(`${hours}:${minutes}`, "H:m").format("HH:mm")
 
     if(!isNaN(e))
-      this.setState({bedtime: `${hours}:${minutes}`})
+      this.setState({bedtime: timeString})
   };
   customThing = (e) => {
     console.log(e);
