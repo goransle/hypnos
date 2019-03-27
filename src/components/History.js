@@ -37,7 +37,8 @@ export default class History extends Component {
           var timeslept = bedtime.diff(waketime, "minutes");
           var duration;
           if(timeslept > 0){
-            hoursSlept[days.indexOf(key)] = Number(24 - (timeslept / 60)).toFixed(1);
+            console.log(timeslept)
+            hoursSlept[days.indexOf(key)] = Number(12 - (timeslept / 60)).toFixed(1);
             duration = Moment.duration({minutes: ((12 * 60) -(timeslept)/2)})
             midpoints[days.indexOf(key)] = Moment(value.waketime, "HH:mm").subtract(duration).format("HH:mm");
           }

@@ -13,23 +13,47 @@ export default function ClockInput(props) {
   const CenterText = props => {
     var diff = () => {
       if (props.end > props.start) {
-        return `${Moment.duration({
-          hours: props.end.hours() - props.start.hours()
-        }).humanize()} ${Moment.duration({
-          minutes: props.end.minutes() - props.start.minutes()
-        }).humanize()}`;
+          console.log(props)
+        return {hours: Moment.duration({
+          hours: props.end.hours() - props.start.hours() - 1
+        }).hours(),
+        minutes: Moment.duration({
+          minutes: props.end.minutes() - props.start.minutes() + 60
+        }).minutes()
+    }
       } else {
-        return `${Moment.duration({
-          hours: 24 + props.end.hours() - props.start.hours()
-        }).humanize()} ${Moment.duration({
-          minutes: props.end.minutes() - props.start.minutes()
-        }).humanize()}`;
+        console.log(props)
+        return {
+          hours: Moment.duration({
+            hours: props.end.hours() - props.start.hours() + 11
+          }).hours(),
+          minutes: Moment.duration({
+            minutes: -(props.start.minutes() - props.end.minutes() - 60)
+          }).minutes()
+        };
       }
     };
     return (
-      <text x={100} y={100} textAnchor="middle" dy="0.3em" fontWeight="bold">
-        {diff()}
-      </text>
+      <React.Fragment>
+        <text
+          x={100}
+          y={90}
+          textAnchor="middle"
+          fontWeight="bold"
+          style={{ whiteSpace: "pre" }}
+        >
+          {diff().hours}
+        </text>
+        <text
+          x={100}
+          y={110}
+          textAnchor="middle"
+          fontWeight="bold"
+          style={{ whiteSpace: "pre" }}
+        >
+          {diff().minutes}
+        </text>
+      </React.Fragment>
     );
   };
   const CustomProgress = props => {
@@ -60,24 +84,6 @@ export default function ClockInput(props) {
       />
     );
   };
-  const CustomThumb = SVGProps => {
-    const {
-      getPointFromValue,
-      isFocused,
-      setFocused
-    } = useCircularInputContext();
-
-    const point = getPointFromValue();
-    if (!point) return null;
-    const { x, y } = point;
-
-    const ref = useRef(SVGCircleElement | null);
-    const { isDragging } = useCircularDrag(ref);
-
-    return (
-      <circle r={isFocused || isDragging ? 23 : 20} ref={ref} cx={x} cy={y} />
-    );
-  };
   return (
     <React.Fragment>
       <CircularInput
@@ -86,6 +92,12 @@ export default function ClockInput(props) {
           Moment(props.bedtime, "hh:mm").minutes() / 720
         }
         onChange={props.handleBedtime}
+        style={{
+          backgroundImage: "url(clock.svg)",
+          backgroundSize: "80%",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat"
+        }}
       >
         <CircularInput
           value={
@@ -111,7 +123,7 @@ export default function ClockInput(props) {
             start={Moment(props.bedtime, "hh:mm")}
           />
         </CircularInput>
-        <CircularThumb style={{zIndex:100, position:"relative"}} />
+        <CircularThumb style={{ zIndex: 100, position: "relative" }} />
       </CircularInput>
     </React.Fragment>
   );

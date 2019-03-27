@@ -1,7 +1,7 @@
 import React, { Component, useRef } from "react";
 import TimePicker from "react-time-picker";
 import ClockInput from "./ClockInput";
-import Moment from "moment"
+import Moment from "moment";
 
 class Logging extends Component {
   constructor(props) {
@@ -16,8 +16,8 @@ class Logging extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
       this.setState({
-        bedtime: this.props.data.bedtime,
-        waketime: this.props.data.waketime,
+        bedtime: this.timeString(this.props.data.bedtime),
+        waketime: this.timeString(this.props.data.waketime),
         rating: this.props.data.rating,
         troubleSleeping: this.props.data.troubleSleeping
       });
@@ -28,37 +28,28 @@ class Logging extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleCircle = (e) => {
+  timeString = string => {
+    return Moment(string, "H:m").format("HH:mm");
+  };
+
+  handleCircle = e => {
     console.log(e * 12);
-    var hours = Moment.duration(e*12, "hours").hours()
-    var minutes = Moment.duration(e*12, "hours").minutes()
-
-    console.log(`${hours}:${minutes}`)
-    var timeString = Moment(`${hours}:${minutes}`, "H:m").format("HH:mm")
-
-    if(!isNaN(e))
-      this.setState({waketime: timeString})
+    var hours = Moment.duration(e * 12, "hours").hours();
+    var minutes = Moment.duration(e * 12, "hours").minutes();
+    if (!isNaN(e))
+      this.setState({ waketime: this.timeString(`${hours}:${minutes}`) });
   };
-  handleCustom = (e) => {
-    console.log(e)
-    if(e > 1){
-      var hours = Moment.duration((-(1 - e)*12), "hours").hours()
-      var minutes = Moment.duration(e*12, "hours").minutes()
+  handleCustom = e => {
+    if (e > 1) {
+      var hours = Moment.duration(-(1 - e) * 12, "hours").hours();
+      var minutes = Moment.duration(e * 12, "hours").minutes();
+    } else {
+      var hours = Moment.duration(e * 12, "hours").hours();
+      var minutes = Moment.duration(e * 12, "hours").minutes();
     }
-    else{
-      var hours = Moment.duration((e*12), "hours").hours()
-      var minutes = Moment.duration(e*12, "hours").minutes()
-    }
-
-    var timeString = Moment(`${hours}:${minutes}`, "H:m").format("HH:mm")
-
-    if(!isNaN(e))
-      this.setState({bedtime: timeString})
+    if (!isNaN(e))
+      this.setState({ bedtime: this.timeString(`${hours}:${minutes}`) });
   };
-  customThing = (e) => {
-    console.log(e);
-  };
-
   handleBedtime = value => {
     this.setState({ bedtime: value });
   };
@@ -108,7 +99,12 @@ class Logging extends Component {
           </div>
         </div>
         <div className="form-group">
-          <ClockInput bedtime={this.state.bedtime} waketime={this.state.waketime} handleBedtime={this.handleCustom} handleWaketime={this.handleCircle}/>
+          <ClockInput
+            bedtime={this.timeString(this.state.bedtime)}
+            waketime={this.timeString(this.state.waketime)}
+            handleBedtime={this.handleCustom}
+            handleWaketime={this.handleCircle}
+          />
         </div>
         <div className="form-group">
           <input
