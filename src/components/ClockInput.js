@@ -12,26 +12,14 @@ import {
 export default function ClockInput(props) {
   const CenterText = props => {
     var diff = () => {
-      if (props.end > props.start) {
-          console.log(props)
-        return {hours: Moment.duration({
-          hours: props.end.hours() - props.start.hours() - 1
-        }).hours(),
-        minutes: Moment.duration({
-          minutes: props.end.minutes() - props.start.minutes() + 60
-        }).minutes()
-    }
-      } else {
-        console.log(props)
-        return {
-          hours: Moment.duration({
-            hours: props.end.hours() - props.start.hours() + 11
-          }).hours(),
-          minutes: Moment.duration({
-            minutes: -(props.start.minutes() - props.end.minutes() - 60)
-          }).minutes()
-        };
+      if (props.start.hours() > props.end.hours()) {
+        return Moment.duration({
+          milliseconds:(props.end.add(12, "hours") - props.start)
+        })
       }
+      return Moment.duration({
+        milliseconds: props.end - props.start
+      })
     };
     return (
       <React.Fragment>
@@ -42,7 +30,7 @@ export default function ClockInput(props) {
           fontWeight="bold"
           style={{ whiteSpace: "pre" }}
         >
-          {diff().hours}
+          {`${diff().hours()} hours`}
         </text>
         <text
           x={100}
@@ -51,7 +39,7 @@ export default function ClockInput(props) {
           fontWeight="bold"
           style={{ whiteSpace: "pre" }}
         >
-          {diff().minutes}
+          {`${diff().minutes()} minutes`}
         </text>
       </React.Fragment>
     );
