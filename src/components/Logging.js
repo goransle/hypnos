@@ -32,14 +32,14 @@ class Logging extends Component {
     return Moment(string, "H:m").format("HH:mm");
   };
 
-  handleCircle = e => {
+  handleCircleWaketime = e => {
     console.log(e * 12);
     var hours = Moment.duration(e * 12, "hours").hours();
     var minutes = Moment.duration(e * 12, "hours").minutes();
     if (!isNaN(e))
       this.setState({ waketime: this.timeString(`${hours}:${minutes}`) });
   };
-  handleCustom = e => {
+  handleCircleBedtime = e => {
     if (e > 1) {
       var hours = Moment.duration(-(1 - e) * 12, "hours").hours();
       var minutes = Moment.duration(e * 12, "hours").minutes();
@@ -77,33 +77,31 @@ class Logging extends Component {
       <form onSubmit={this.onSubmit}>
         <div className="form-group">
           <div className="input-group-lg mb-3">
-            <label className="input">I went to bed at</label>
-            <TimePicker
+            <label className="input">I went to bed at {this.state.bedtime}</label>
+            {/* <TimePicker
               name="bedtime"
-              onChange={this.handleBedtime}
               value={this.state.bedtime}
               disableClock={true}
               locale={"en-GB"}
-            />
+            /> */}
           </div>
           <div className="input-group-lg">
-            <label style={{ paddingLeft: "1em" }}>and woke up</label>
-            <TimePicker
+            <label style={{ paddingLeft: "1em" }}>and woke up {this.state.waketime}</label>
+            {/* <TimePicker
               type="time"
               name="waketime"
-              onChange={this.handleWaketime}
               value={this.state.waketime}
               disableClock={true}
               locale={"en-GB"}
-            />
+            /> */}
           </div>
         </div>
         <div className="form-group">
           <ClockInput
             bedtime={this.timeString(this.state.bedtime)}
             waketime={this.timeString(this.state.waketime)}
-            handleBedtime={this.handleCustom}
-            handleWaketime={this.handleCircle}
+            handleBedtime={this.handleCircleBedtime}
+            handleWaketime={this.handleCircleWaketime}
           />
         </div>
         <div className="form-group">
