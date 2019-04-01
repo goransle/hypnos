@@ -81,7 +81,7 @@ class Logging extends Component {
             <TimePicker
               name="bedtime"
               onChange={this.handleBedtime}
-              value={data.bedtime}
+              value={this.state.bedtime}
               disableClock={true}
               locale={"en-GB"}
             />
@@ -92,7 +92,7 @@ class Logging extends Component {
               type="time"
               name="waketime"
               onChange={this.handleWaketime}
-              value={data.waketime}
+              value={this.state.waketime}
               disableClock={true}
               locale={"en-GB"}
             />
