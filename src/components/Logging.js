@@ -71,8 +71,6 @@ class Logging extends Component {
   };
 
   render() {
-    var { data } = this.props;
-
     return (
       <form onSubmit={this.onSubmit}>
         <div className="form-group">
