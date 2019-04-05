@@ -1,37 +1,71 @@
 import React from 'react'
-import { BarChart } from "reaviz";
+
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+
 import Moment from "moment";
 
 export default function Graphs(props) {
-    const ratingsList = props.days.filter((day) =>{
-        if(day.rating === undefined){
-          return false
-        }
-        return true
-      }).map( (day) =>{
-          console.log(day)
-          return (
-              {key:Moment(day.date, "MM/DD/YYYY").format("DD/MM/YY"), data: day.rating}
-          )
-      })
-  
-      const durationList = props.days.filter((day) =>{
-        if(day.sleepDuration === undefined){
-          return false
-        }
-        return true
-      }).map( (day) =>{
-          console.log(day)
-          return (
-              {key:Moment(day.date, "MM/DD/YYYY").format("DD/MM/YY"), data: day.sleepDuration}
-          )
-      })
+  const options = {
+    title: {
+      text: 'Trends'
+    },
+    chart: {
+      zoomType: 'x'
+    },
+    tooltip: {
+      shared: true,
+      dateTimeLabelFormats: {
+        day: "%A, %b %e, %Y",
+        hour: "%A, %b %e, %Y",
+        month: "%B %Y"
+      }
+    },
+    series: [{
+      name: "Sleep duration",
+      zones: [{
+        value: 0,
+        color: '#ff4136'
+      },
+      {
+        value: 5,
+        color: '#ff4136'
+      },
+      {
+        value: 6,
+        color: '#FF851B'
+      },
+      {
+        value: 7,
+        color: '#01FF70'
+      }, {
+        color: '#2ECC40'
+      }],
+      type: "column",
+      data: props.days.reverse().filter(day => day.sleepDuration !== undefined && day.sleepDuration !== 0).map(({ sleepDuration, date }) => ([Moment(date).valueOf(), Number(sleepDuration)]))
+    },
+    {
+      name: "Rating",
+      type: "line",
+      data: props.days.reverse().filter(day => day.rating !== undefined).map(day => ([Moment(day.date).valueOf(), Number(day.rating)])),
+    }
+    ],
+    xAxis: {
+      type: "datetime",
+      reversed: true,
+      crosshair: true
+    },
+    yAxis: {
+    }
+  }
+
+  console.log(options)
   return (
     <div>
-      <h3>Ratings</h3>
-        <BarChart width={350} height={250} data={ratingsList} />
-        <h3>Duration</h3>
-        <BarChart width={350} height={250} data={durationList} />
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={options}
+      />
     </div>
   )
 }
