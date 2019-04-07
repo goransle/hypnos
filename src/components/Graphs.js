@@ -1,12 +1,15 @@
 import React from 'react'
 
 import Highcharts from 'highcharts'
+import HC_more from 'highcharts/highcharts-more'
 import HighchartsReact from 'highcharts-react-official'
-
 import Moment from "moment";
 
+HC_more(Highcharts)
+
 export default function Graphs(props) {
-  const options = {
+  console.log(props)
+  const durationOptions = {
     title: {
       text: 'Trends'
     },
@@ -42,11 +45,13 @@ export default function Graphs(props) {
         color: '#2ECC40'
       }],
       type: "column",
-      data: props.days.reverse().filter(day => day.sleepDuration !== undefined && day.sleepDuration !== 0).map(({ sleepDuration, date }) => ([Moment(date).valueOf(), Number(sleepDuration)]))
+      data: props.days.reverse()
+        .filter(day => day.sleepDuration !== undefined && day.sleepDuration !== 0)
+        .map(({ sleepDuration, date }) => ([Moment(date).valueOf(), Number(sleepDuration)]))
     },
     {
       name: "Rating",
-      type: "line",
+      type: "spline",
       data: props.days.reverse().filter(day => day.rating !== undefined).map(day => ([Moment(day.date).valueOf(), Number(day.rating)])),
     }
     ],
@@ -59,13 +64,67 @@ export default function Graphs(props) {
     }
   }
 
-  console.log(options)
+  const timeOptions = {
+    chart: {
+      type: 'columnrange',
+      inverted: true
+    },
+    plotOptions: {
+      columnrange: {
+        dataLabels: {
+          enabled: true,
+          formatter: function () {
+            return Moment(this.y).utc(true).format("HH:mm");
+          },
+          y: 0
+        }
+      }
+    },
+    xAxis: {
+      type: 'datetime',
+      categories: props.days.reverse()
+        .filter(day => day.sleepDuration !== undefined && day.sleepDuration !== 0)
+        .map(({ date }) => ([Moment(date).format("DD MMM")]))
+    },
+    yAxis: {
+      type: 'datetime',
+      labels: {
+        formatter: function () {
+          var label = this.axis.defaultLabelFormatter.call(this);
+
+          // Use thousands separator for four-digit numbers too
+          return Moment(label, "HH:mm").add(2, "hours").utc(true).format("HH:mm");
+        }
+      }
+    },
+    tooltip: {
+      enabled: false
+    },
+    series: [{
+      name: 'Sleepy times',
+      data: props.days
+        .filter(day => day.sleepDuration !== undefined && day.sleepDuration !== 0)
+        .map(({ time }) => {
+          if (Moment(time.bedtime, "hh:mm").valueOf() > Moment(time.waketime, "hh:mm").valueOf()) {
+            return ([Moment(time.bedtime, "hh:mm").subtract(12, "hours").valueOf(), Moment(time.waketime, "hh:mm").utc().valueOf()])
+          }
+          return ([Moment(time.bedtime, "hh:mm").utc().valueOf(), Moment(time.waketime, "hh:mm").utc().valueOf()])
+        })
+    }]
+  }
+  console.log(timeOptions)
   return (
     <div>
       <HighchartsReact
         highcharts={Highcharts}
-        options={options}
+        options={durationOptions}
       />
+      <div>
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={timeOptions}
+        />
+      </div>
     </div>
   )
 }
