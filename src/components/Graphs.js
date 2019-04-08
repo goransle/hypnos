@@ -47,13 +47,13 @@ export default function Graphs(props) {
       type: "column",
       data: props.days.reverse()
         .filter(day => day.sleepDuration !== undefined && day.sleepDuration > 0)
-        .map(({ sleepDuration, date }) => ([Moment(date).valueOf(), Number(sleepDuration)]))
+        .map(({ sleepDuration, date }) => ([Moment(date).utc(true).valueOf(), Number(sleepDuration)]))
     },
     {
       name: "Rating",
       type: "spline",
       data: props.days.reverse().filter(day => day.rating !== undefined)
-        .map(day => ([Moment(day.date).valueOf(), Number(day.rating)])),
+        .map(day => ([Moment(day.date).utc(true).valueOf(), Number(day.rating)])),
     }
     ],
     xAxis: {
