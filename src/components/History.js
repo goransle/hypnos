@@ -10,7 +10,7 @@ export default class History extends Component {
 
     this.state = {
       today: Moment(this.props.today),
-      days : []
+      days: []
     };
   }
   componentDidMount() {
@@ -22,73 +22,71 @@ export default class History extends Component {
       days.push(day);
     }
     var ratings = [null];
-    var hoursSlept = [0]; 
+    var hoursSlept = [0];
     var midpoints = [null]
     var times = []
     localForage
-      .iterate(function(value, key, iterationNumber) {
+      .iterate(function (value, key, iterationNumber) {
         //console.log([key, value]);
-        if(days.includes(key)) {
+        if (days.includes(key)) {
           ratings[days.indexOf(key)] = Number(value.rating)
           var bedtime = Moment(value.bedtime, "HH:mm")
           var waketime = Moment(value.waketime, "HH:mm")
-          times[days.indexOf(key)] = {bedtime: bedtime.format("HH:mm"), waketime: waketime.format("HH:mm")}
+          times[days.indexOf(key)] = { bedtime: bedtime.format("HH:mm"), waketime: waketime.format("HH:mm") }
           console.log(times)
           var timeslept = bedtime.diff(waketime, "minutes");
           var duration;
-          if(timeslept > 0){
+          if (timeslept > 0) {
             console.log(timeslept)
             hoursSlept[days.indexOf(key)] = Number(12 - (timeslept / 60)).toFixed(1);
-            duration = Moment.duration({minutes: ((12 * 60) -(timeslept)/2)})
+            duration = Moment.duration({ minutes: ((12 * 60) - (timeslept) / 2) })
             midpoints[days.indexOf(key)] = Moment(value.waketime, "HH:mm").subtract(duration).format("HH:mm");
           }
-          else{
+          else {
             hoursSlept[days.indexOf(key)] = Number(-(timeslept / 60).toFixed(1));
-            duration = Moment.duration({minutes: Number(-(timeslept/2))})
+            duration = Moment.duration({ minutes: Number(-(timeslept / 2)) })
           }
           midpoints[days.indexOf(key)] = Moment(value.waketime, "HH:mm").subtract(duration).format("HH:mm");
         }
       })
-      .then( () => {
-        const average = arr => arr.reduce( ( p, c ) => Number(p) + Number(c), 0 ) / arr.length;
-        const averageRating = average( ratings ).toFixed(1);
+      .then(() => {
+        const average = arr => arr.reduce((p, c) => Number(p) + Number(c), 0) / arr.length;
+        const averageRating = average(ratings).toFixed(1);
         const averageDuration = average(hoursSlept).toFixed(1)
-          var dayObjects = days.map( (day, i) =>{
-            return {"date": day, sleepDuration: hoursSlept[i], rating: ratings[i], midpoint: midpoints[i], time: times[i]}
-          })
+        var dayObjects = days.map((day, i) => {
+          return { "date": day, sleepDuration: hoursSlept[i], rating: ratings[i], midpoint: midpoints[i], time: times[i] }
+        })
 
         this.setState({
-            days : dayObjects,
-            averageRating,
-            averageDuration
+          days: dayObjects,
+          averageRating,
+          averageDuration
         })
       })
   }
-  render() {  
+  render() {
     return (
       <div>
         <table className="history">
           <tbody>
             <tr><th>Date</th><th>Bedtime</th><th>Waketime</th><th>Duration</th><th>Rating</th></tr>
             <tr><td>Average: </td><td></td><td></td><td>{this.state.averageDuration}</td><td>{this.state.averageRating}</td></tr>
-            {this.state.days.map( (day, key) =>{
-              if(day.time){
+            {this.state.days.filter(day => day.sleepDuration > 0).map((day, key) => {
                 return (
-                    <tr key={key}>
-                        <td>{day.date}</td>
-                        <td>{day.time.bedtime}</td>
-                        <td>{day.time.waketime}</td>
-                        <td>{day.sleepDuration}</td>
-                        <td>{day.rating}</td>
-                    </tr>
+                  <tr key={key}>
+                    <td>{day.date}</td>
+                    <td>{day.time.bedtime}</td>
+                    <td>{day.time.waketime}</td>
+                    <td>{day.sleepDuration}</td>
+                    <td>{day.rating}</td>
+                  </tr>
                 )
-              }
             })
-        }
-        </tbody>
+            }
+          </tbody>
         </table>
-        <Graphs days={this.state.days}/>
-        </div>
+        <Graphs days={this.state.days} />
+      </div>
     );
   }
 }
