@@ -66,6 +66,9 @@ export default function Graphs(props) {
   }
 
   const timeOptions = {
+    title: {
+      text: "Sleep times"
+    },
     chart: {
       type: 'columnrange',
       inverted: true
@@ -83,7 +86,8 @@ export default function Graphs(props) {
     },
     xAxis: {
       type: 'datetime',
-      categories: props.days.reverse()
+      reversed: true,
+      categories: props.days
         .filter(day => day.sleepDuration !== undefined && day.sleepDuration > 0)
         .map(({ date }) => ([Moment(date).format("DD MMM")]))
     },
@@ -92,7 +96,7 @@ export default function Graphs(props) {
       labels: {
         formatter: function () {
           var label = this.axis.defaultLabelFormatter.call(this);
-          
+
           return Moment(label, "HH:mm").add(2, "hours").utc(true).format("HH:mm");
         }
       }
