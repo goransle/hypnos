@@ -46,13 +46,14 @@ export default function Graphs(props) {
       }],
       type: "column",
       data: props.days.reverse()
-        .filter(day => day.sleepDuration !== undefined && day.sleepDuration !== 0)
+        .filter(day => day.sleepDuration !== undefined && day.sleepDuration > 0)
         .map(({ sleepDuration, date }) => ([Moment(date).valueOf(), Number(sleepDuration)]))
     },
     {
       name: "Rating",
       type: "spline",
-      data: props.days.reverse().filter(day => day.rating !== undefined).map(day => ([Moment(day.date).valueOf(), Number(day.rating)])),
+      data: props.days.reverse().filter(day => day.rating !== undefined)
+        .map(day => ([Moment(day.date).valueOf(), Number(day.rating)])),
     }
     ],
     xAxis: {
@@ -83,7 +84,7 @@ export default function Graphs(props) {
     xAxis: {
       type: 'datetime',
       categories: props.days.reverse()
-        .filter(day => day.sleepDuration !== undefined && day.sleepDuration !== 0)
+        .filter(day => day.sleepDuration !== undefined && day.sleepDuration > 0)
         .map(({ date }) => ([Moment(date).format("DD MMM")]))
     },
     yAxis: {
@@ -91,8 +92,7 @@ export default function Graphs(props) {
       labels: {
         formatter: function () {
           var label = this.axis.defaultLabelFormatter.call(this);
-
-          // Use thousands separator for four-digit numbers too
+          
           return Moment(label, "HH:mm").add(2, "hours").utc(true).format("HH:mm");
         }
       }
@@ -103,7 +103,7 @@ export default function Graphs(props) {
     series: [{
       name: 'Sleepy times',
       data: props.days
-        .filter(day => day.sleepDuration !== undefined && day.sleepDuration !== 0)
+        .filter(day => day.sleepDuration !== undefined && day.sleepDuration > 0)
         .map(({ time }) => {
           if (Moment(time.bedtime, "hh:mm").valueOf() > Moment(time.waketime, "hh:mm").valueOf()) {
             return ([Moment(time.bedtime, "hh:mm").subtract(12, "hours").valueOf(), Moment(time.waketime, "hh:mm").utc().valueOf()])
