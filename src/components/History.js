@@ -3,6 +3,7 @@ import localForage from "localforage";
 import Moment from "moment";
 
 import Graphs from "./Graphs"
+import SleepScore from "./SleepScore"
 
 export default class History extends Component {
   constructor(props) {
@@ -40,13 +41,13 @@ export default class History extends Component {
             console.log(timeslept)
             hoursSlept[days.indexOf(key)] = Number(12 - (timeslept / 60)).toFixed(1);
             duration = Moment.duration({ minutes: ((12 * 60) - (timeslept) / 2) })
-            midpoints[days.indexOf(key)] = Moment(value.waketime, "HH:mm").subtract(duration).format("HH:mm");
+            midpoints[days.indexOf(key)] = Moment(value.waketime, "hh:mm").subtract(duration).format("hh:mm");
           }
           else {
             hoursSlept[days.indexOf(key)] = Number(-(timeslept / 60).toFixed(1));
             duration = Moment.duration({ minutes: Number(-(timeslept / 2)) })
           }
-          midpoints[days.indexOf(key)] = Moment(value.waketime, "HH:mm").subtract(duration).format("HH:mm");
+          midpoints[days.indexOf(key)] = Moment(value.waketime, "hh:mm").add(duration).format("hh:mm");
         }
       })
       .then(() => {
@@ -67,6 +68,7 @@ export default class History extends Component {
   render() {
     return (
       <div>
+        <SleepScore days={this.state.days}/>
         <table className="history">
           <tbody>
             <tr><th>Date</th><th>Bedtime</th><th>Waketime</th><th>Duration</th><th>Rating</th></tr>
