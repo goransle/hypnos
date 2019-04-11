@@ -38,16 +38,16 @@ export default class History extends Component {
           var timeslept = bedtime.diff(waketime, "minutes");
           var duration;
           if (timeslept > 0) {
-            console.log(timeslept)
             hoursSlept[days.indexOf(key)] = Number(12 - (timeslept / 60)).toFixed(1);
-            duration = Moment.duration({ minutes: ((12 * 60) - (timeslept) / 2) })
-            midpoints[days.indexOf(key)] = Moment(value.waketime, "hh:mm").subtract(duration).format("hh:mm");
+            duration = Moment.duration({ minutes: (12 * 60 - timeslept) / 2 })
+            midpoints[days.indexOf(key)] = Moment(value.bedtime, "hh:mm").add(duration).format("hh:mm");
           }
           else {
-            hoursSlept[days.indexOf(key)] = Number(-(timeslept / 60).toFixed(1));
-            duration = Moment.duration({ minutes: Number(-(timeslept / 2)) })
+            hoursSlept[days.indexOf(key)] = Number(- (timeslept / 60).toFixed(1));
+            duration = Moment.duration({ minutes: (-timeslept / 2) })
+            console.log(duration.valueOf())
+            midpoints[days.indexOf(key)] = Moment(value.bedtime, "hh:mm").add(duration).format("hh:mm");
           }
-          midpoints[days.indexOf(key)] = Moment(value.waketime, "hh:mm").add(duration).format("hh:mm");
         }
       })
       .then(() => {
@@ -55,7 +55,7 @@ export default class History extends Component {
         const averageRating = average(ratings).toFixed(1);
         const averageDuration = average(hoursSlept).toFixed(1)
         var dayObjects = days.map((day, i) => {
-          return { "date": day, sleepDuration: hoursSlept[i], rating: ratings[i], midpoint: midpoints[i], time: times[i] }
+          return { "date": day, sleepDuration: Number(hoursSlept[i]), rating: ratings[i], midpoint: midpoints[i], time: times[i] }
         })
 
         this.setState({
@@ -68,21 +68,21 @@ export default class History extends Component {
   render() {
     return (
       <div>
-        <SleepScore days={this.state.days}/>
+        <SleepScore days={this.state.days} />
         <table className="history">
           <tbody>
             <tr><th>Date</th><th>Bedtime</th><th>Waketime</th><th>Duration</th><th>Rating</th></tr>
             <tr><td>Average: </td><td></td><td></td><td>{this.state.averageDuration}</td><td>{this.state.averageRating}</td></tr>
             {this.state.days.filter(day => day.sleepDuration > 0).map((day, key) => {
-                return (
-                  <tr key={key}>
-                    <td>{day.date}</td>
-                    <td>{day.time.bedtime}</td>
-                    <td>{day.time.waketime}</td>
-                    <td>{day.sleepDuration}</td>
-                    <td>{day.rating}</td>
-                  </tr>
-                )
+              return (
+                <tr key={key}>
+                  <td>{day.date}</td>
+                  <td>{day.time.bedtime}</td>
+                  <td>{day.time.waketime}</td>
+                  <td>{day.sleepDuration}</td>
+                  <td>{day.rating}</td>
+                </tr>
+              )
             })
             }
           </tbody>

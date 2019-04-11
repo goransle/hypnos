@@ -165,7 +165,7 @@ export default function SleepGauge(props) {
             }]
         }, 
         {
-            name: 'Stand',
+            name: 'Consistency',
             data: [{
                 color: Highcharts.getOptions().colors[2],
                 radius: '62%',
