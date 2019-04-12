@@ -170,7 +170,7 @@ export default function SleepGauge(props) {
                 color: Highcharts.getOptions().colors[2],
                 radius: '62%',
                 innerRadius: '38%',
-                y: 0
+                y: Number(props.consistencyScore) || 25
             }]
         }
     ]

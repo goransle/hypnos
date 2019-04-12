@@ -71,8 +71,8 @@ export default class History extends Component {
         <SleepScore days={this.state.days} />
         <table className="history">
           <tbody>
-            <tr><th>Date</th><th>Bedtime</th><th>Waketime</th><th>Duration</th><th>Rating</th></tr>
-            <tr><td>Average: </td><td></td><td></td><td>{this.state.averageDuration}</td><td>{this.state.averageRating}</td></tr>
+            <tr><th>Date</th><th>Bedtime</th><th>Waketime</th><th>Duration</th><th>Midpoint</th><th>Rating</th></tr>
+            <tr><td>Average: </td><td></td><td></td><td>{this.state.averageDuration}</td><td></td><td>{this.state.averageRating}</td></tr>
             {this.state.days.filter(day => day.sleepDuration > 0).map((day, key) => {
               return (
                 <tr key={key}>
@@ -80,6 +80,7 @@ export default class History extends Component {
                   <td>{day.time.bedtime}</td>
                   <td>{day.time.waketime}</td>
                   <td>{day.sleepDuration}</td>
+                  <td>{day.midpoint}</td>
                   <td>{day.rating}</td>
                 </tr>
               )
