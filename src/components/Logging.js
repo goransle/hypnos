@@ -84,14 +84,14 @@ class Logging extends Component {
       <form onSubmit={this.onSubmit}>
         <div className="form-group" style={{ maxWidth: "500px", margin: "0 auto" }}>
           <div className="input-group-lg mb-3" style={{ maxWidth: "500px", margin: "0 auto" }}>
-            <label style={{ float: "left", fontSize: "1.25em" }} className="input">Bedtime <br /> {this.state.bedtime}</label>
+            <label style={{ marginLeft:"1em", float: "left", fontSize: "1.25em" }} className="input">Bedtime <br /> {this.state.bedtime}</label>
             {/* <TimePicker
               name="bedtime"
               value={this.state.bedtime}
               disableClock={true}
               locale={"en-GB"}
             /> */}
-            <label style={{ float: "right", fontSize: "1.25em" }}>Woke up <br /> {this.state.waketime}</label>
+            <label style={{marginRight:"1em", float: "right", fontSize: "1.25em" }}>Woke up <br /> {this.state.waketime}</label>
             {/* <TimePicker
               type="time"
               name="waketime"
