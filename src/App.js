@@ -15,8 +15,9 @@ const today = Moment();
 var defaultData = {
   bedtime: "11:00",
   waketime: "07:25",
-  rating: 5,
-  troubleSleeping: 0
+  rating: 3,
+  troubleSleeping: 0,
+  wakeDuring: 0
 };
 
 class App extends Component {

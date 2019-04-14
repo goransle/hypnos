@@ -32,7 +32,7 @@ class Days extends Component {
     }
     return (
       <div className="pastWeek">
-        <p>Today is {this.state.today.format("dddd")}</p>
+        {/* <p>Today is {this.state.today.format("dddd")}</p> */}
         <ol>
         {days.map((day, index) => {
           var classes = [];

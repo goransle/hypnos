@@ -26,7 +26,7 @@ export default class SleepScore extends Component {
     ratingScores = () => this.props.days
         .filter(({ sleepDuration }) => Number(sleepDuration) > 0)
         .map(({ rating }) => {
-            return rating * 10
+            return rating * 20
         })
 
     consistencyScores = () => this.props.days

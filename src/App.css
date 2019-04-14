@@ -1,9 +1,15 @@
+:root {
+  --main-bg-color: snow;
+  --main-text-color: black;
+  --main-highlight-color: #3d99ff;
+}
 * {
-  margin:0;
+  margin: 0;
   padding: 0;
 }
-.App {
+body {
   text-align: center;
+  background-color: snow;
 }
 
 .App-logo {
@@ -26,63 +32,138 @@
   color: #61dafb;
 }
 
-form{
+form {
   display: relative;
   justify-content: space-between;
   height: 100%;
   width: 100%;
 }
-form .form-group{
+form .form-group {
   padding: 0.5em;
 }
-form label{
+form label {
   margin-right: 0.5em;
 }
-form input[type="range"]{
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  background-color: var(--main-bg-color)
+}
+input[type="range"]:focus {
+  outline: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 0.5em;
+  cursor: pointer;
+  background: var(--main-highlight-color);
+  border-radius: 5%;
+}
+input[type="range"]::-webkit-slider-thumb {
+  height: 2em;
+  width: 2em;
+  border-radius: 100%;
+  background: blue;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -0.75em;
+}
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: var(--main-highlight-color);
+}
+input[type="range"]::-moz-range-track {
+  height: 0.5em;
+  cursor: pointer;
+  background: var(--main-highlight-color);
+  border-style: none;
+}
+input[type="range"]::-moz-range-thumb {
+  height: 2em;
+  width: 2em;
+  border-radius: 100%;
+  background: blue;
+  cursor: pointer;
+  margin-top: -0.75em;
+}
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type="range"]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type="range"]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #84ffff;
+  cursor: pointer;
+  height: 8.4px;
+}
+input[type="range"]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+input[type="range"]:focus::-ms-fill-upper {
+  background: #367ebd;
+}
+
+form input[type="submit"] {
   display: block;
   margin: 0 auto;
 }
-form input[type="submit"]{
-  display: block;
-  margin: 0 auto;
-}
-.pastWeek{
-  margin:0;
+.pastWeek {
+  margin: 0;
   padding: 0;
 }
-.pastWeek ol{
+.pastWeek ol {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.pastWeek li{
+.pastWeek li {
   display: inline-block;
-  width: 3em;
-  height: 3em;
-  line-height: 3em;
-  margin: 0.5em;
+  width: 2.5em;
+  height: 2.5em;
+  line-height: 2.5em;
+  margin: 0.25em;
   text-align: center;
-  border: 1px solid;
+  border: 1px;
   border-radius: 50%;
   user-select: none;
 }
 
-.pastWeek .logged{
-  background-color: green;
+.pastWeek li {
+  background-color: #dddddd;
 }
-.pastWeek .selected{
-  background-color: blue;
+.pastWeek .logged {
+  background-color: #2ecc40;
+}
+.pastWeek .selected {
+  background-color: #0074d9;
 }
 
-.chart{
+.chart {
   max-width: 700px;
   margin: 0 auto;
 }
 
-.history{
-  background-color: steelblue;
-  margin: 0 auto;
-}
 /* .history tr{
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -95,7 +176,7 @@ form input[type="submit"]{
   font-weight: bold;
   text-align: center
 } */
-.history td{
+.history td {
   margin: 1em;
 }
 

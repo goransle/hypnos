@@ -73,7 +73,7 @@ export default function SleepGauge(props) {
 
         chart: {
             type: 'solidgauge',
-            height: '50%',
+            height: '100%',
             events: {
                 render: renderIcons
             }

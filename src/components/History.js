@@ -69,10 +69,13 @@ export default class History extends Component {
     return (
       <div>
         <SleepScore days={this.state.days} />
-        <table className="history">
-          <tbody>
+        <table className="history table table-responsive table-hover">
+          <thead className="thead">
             <tr><th>Date</th><th>Bedtime</th><th>Waketime</th><th>Duration</th><th>Midpoint</th><th>Rating</th></tr>
+          </thead>
+          <tbody>
             <tr><td>Average: </td><td></td><td></td><td>{this.state.averageDuration}</td><td></td><td>{this.state.averageRating}</td></tr>
+
             {this.state.days.filter(day => day.sleepDuration > 0).map((day, key) => {
               return (
                 <tr key={key}>

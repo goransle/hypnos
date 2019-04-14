@@ -9,8 +9,9 @@ class Logging extends Component {
     this.state = {
       bedtime: "",
       waketime: "",
-      rating: 0,
-      troubleSleeping: 0
+      rating: 3,
+      troubleSleeping: 0,
+      wakeDuring: 0
     };
   }
   componentDidUpdate(prevProps) {
@@ -19,7 +20,8 @@ class Logging extends Component {
         bedtime: this.timeString(this.props.data.bedtime),
         waketime: this.timeString(this.props.data.waketime),
         rating: this.props.data.rating,
-        troubleSleeping: this.props.data.troubleSleeping
+        troubleSleeping: this.props.data.troubleSleeping,
+        wakeDuring: this.props.data.wakeDuring
       });
     }
   }
@@ -59,11 +61,18 @@ class Logging extends Component {
 
   handleClick = e => {
     console.log(e.target);
-    if (e.target.innerHTML === "No") {
-      this.setState({ troubleSleeping: 0 });
-      console.log("what");
-    } else if (e.target.innerHTML === "Yes")
-      this.setState({ troubleSleeping: 1 });
+    if (e.target.classList.contains("wakebutton")) {
+      if (e.target.innerHTML === "No") {
+        this.setState({ wakeDuring: 0 });
+      } else if (e.target.innerHTML === "Yes")
+        this.setState({ wakeDuring: 1 });
+    }
+    else {
+      if (e.target.innerHTML === "No") {
+        this.setState({ troubleSleeping: 0 });
+      } else if (e.target.innerHTML === "Yes")
+        this.setState({ troubleSleeping: 1 });
+    }
   };
 
   onSubmit = form => {
@@ -73,18 +82,16 @@ class Logging extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <div className="form-group">
-          <div className="input-group-lg mb-3">
-            <label className="input">I went to bed at {this.state.bedtime}</label>
+        <div className="form-group" style={{ maxWidth: "500px", margin: "0 auto" }}>
+          <div className="input-group-lg mb-3" style={{ maxWidth: "500px", margin: "0 auto" }}>
+            <label style={{ float: "left", fontSize: "1.25em" }} className="input">Bedtime <br /> {this.state.bedtime}</label>
             {/* <TimePicker
               name="bedtime"
               value={this.state.bedtime}
               disableClock={true}
               locale={"en-GB"}
             /> */}
-          </div>
-          <div className="input-group-lg">
-            <label style={{ paddingLeft: "1em" }}>and woke up {this.state.waketime}</label>
+            <label style={{ float: "right", fontSize: "1.25em" }}>Woke up <br /> {this.state.waketime}</label>
             {/* <TimePicker
               type="time"
               name="waketime"
@@ -103,28 +110,33 @@ class Logging extends Component {
           />
         </div>
         <div className="form-group">
+          <label htmlFor="rating">How did you feel this morning?</label>
+          <br/>
+          <label htmlFor="rating">{
+            (this.state.rating === "1" && "Very bad")
+            || (this.state.rating === "2" && "Not great")
+            || (this.state.rating === "3" && "OK")
+            || (this.state.rating === "4" && "Pretty good")
+            || (this.state.rating === "5" && "Awesome")
+          }
+          </label>
           <input
             name="rating"
             type="range"
             value={this.state.rating}
             onChange={this.handleChange}
-            max="10"
-            min="0"
+            max="5"
+            min="1"
             step="1"
             list="steplist"
+            class="form-control-range"
           />
           <datalist id="steplist">
-            <option>0</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
             <option>4</option>
             <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
           </datalist>
         </div>
         <div className="form-group">
@@ -146,6 +158,32 @@ class Logging extends Component {
               className={
                 "btn btn-primary btn-lg" +
                 (this.state.troubleSleeping ? " active" : "")
+              }
+              onClick={this.handleClick}
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="">Did you wake up during your sleep without easily getting back to sleep?</label>
+          <br />
+          <div className="btn-group" data-toggle="buttons">
+            <button
+              type="button"
+              className={
+                "wakebutton btn btn-primary btn-lg" +
+                (this.state.wakeDuring ? "" : " active")
+              }
+              onClick={this.handleClick}
+            >
+              No
+            </button>
+            <button
+              type="button"
+              className={
+                "wakebutton btn btn-primary btn-lg" +
+                (this.state.wakeDuring ? " active" : "")
               }
               onClick={this.handleClick}
             >
