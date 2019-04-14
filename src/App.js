@@ -60,8 +60,7 @@ class App extends Component {
         <div className="App">
           <Header />
           <Route
-            exact
-            path="/"
+            exact path="/"
             render={props => (
               <React.Fragment>
                 <Days
@@ -73,12 +72,12 @@ class App extends Component {
                   day={this.state.selectedDay}
                   data={this.state.logData}
                   inputHandler={this.inputHandler}
-                  state={props}
+                  // state={props}
                 />
               </React.Fragment>
             )}
           />
-          <Route path="/history" render={props => <History />} />
+          <Route exact path="/history" component={History} />
         </div>
       </Router>
     );

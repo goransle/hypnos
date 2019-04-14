@@ -129,7 +129,7 @@ class Logging extends Component {
             min="1"
             step="1"
             list="steplist"
-            class="form-control-range"
+            className="form-control-range"
           />
           <datalist id="steplist">
             <option>1</option>
