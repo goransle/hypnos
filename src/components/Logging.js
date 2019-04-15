@@ -140,7 +140,7 @@ class Logging extends Component {
           </datalist>
         </div>
         <div className="form-group">
-          <label htmlFor="">Did you have trouble getting to sleep?</label>
+          <label htmlFor="">Did you have trouble falling asleep?</label>
           <br />
           <div className="btn-group" data-toggle="buttons">
             <button
@@ -166,7 +166,7 @@ class Logging extends Component {
           </div>
         </div>
         <div className="form-group">
-          <label htmlFor="">Did you wake up during your sleep without easily getting back to sleep?</label>
+          <label htmlFor="">Did you wake up during your sleep without easily falling asleep again?</label>
           <br />
           <div className="btn-group" data-toggle="buttons">
             <button

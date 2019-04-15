@@ -11,6 +11,14 @@ body {
   text-align: center;
   background-color: snow;
 }
+header{
+  text-align: left;
+  padding-left: 1em;
+}
+
+.App{
+  padding-bottom: 60px;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;

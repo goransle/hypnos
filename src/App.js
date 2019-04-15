@@ -57,8 +57,8 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
-          <Header />
+        <Header />
+        <div className="App container">
           <Route
             exact path="/"
             render={props => (
