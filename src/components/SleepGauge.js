@@ -80,7 +80,7 @@ export default function SleepGauge(props) {
         },
 
         title: {
-            text: 'Sleep score',
+            text: null,
             style: {
                 fontSize: '24px'
             }

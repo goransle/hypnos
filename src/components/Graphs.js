@@ -11,7 +11,7 @@ export default function Graphs(props) {
   console.log(props)
   const durationOptions = {
     title: {
-      text: 'Trends'
+      text: ''
     },
     chart: {
       zoomType: 'x'
@@ -62,12 +62,15 @@ export default function Graphs(props) {
       crosshair: true
     },
     yAxis: {
+      title: {
+        text: "Hours"
+      }
     }
   }
 
   const timeOptions = {
     title: {
-      text: "Sleep times"
+      text: ""
     },
     chart: {
       type: 'columnrange',
@@ -89,8 +92,7 @@ export default function Graphs(props) {
       reversed: true,
       categories: props.days
         .filter(day => day.sleepDuration !== undefined && day.sleepDuration > 0)
-        .map(({ date }) => ([Moment(date).format("DD MMM")]))
-    },
+        .map(({ date }) => ([Moment(date).format("DD MMM")]))    },
     yAxis: {
       type: 'datetime',
       labels: {
@@ -102,6 +104,9 @@ export default function Graphs(props) {
       }
     },
     tooltip: {
+      enabled: false
+    },
+    legend: {
       enabled: false
     },
     series: [{
@@ -119,11 +124,13 @@ export default function Graphs(props) {
   console.log(timeOptions)
   return (
     <div>
+      <h3>Sleep duration and rating</h3>
       <HighchartsReact
         highcharts={Highcharts}
         options={durationOptions}
       />
       <div>
+        <h3>Bedtime and waketime</h3>
         <HighchartsReact
           highcharts={Highcharts}
           options={timeOptions}
