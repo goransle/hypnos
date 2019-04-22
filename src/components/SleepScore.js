@@ -71,16 +71,16 @@ export default class SleepScore extends Component {
                     ratingScore={[this.ratingScores()[0]]}
                     consistencyScore={[this.consistencyScores()[0]]}
                 />
-                <div>
+                <div id="analysis">
                     <h3>Analysis</h3>
-                    {
+                    <p>{
                         ([this.durationScores()[0]] > 75 &&
                             "You slept for at least 7 hours, which is great!") ||
                         ([this.durationScores()[0]] <= 50 &&
                             "You slept for less than 6 hours, which is less than recommended.") ||
                         ("Your sleep duration was adequate")
-                    }
-                    <br />
+                    }</p>
+                    <p>
                     {
                         ([this.ratingScores()[0]] > 75 &&
                             "You reported feeling good, which is indicative of good quality sleep.") ||
@@ -88,13 +88,15 @@ export default class SleepScore extends Component {
                             "You reported feeling bad, which is indicative of worse quality sleep.") ||
                         ("You reported feeling OK")
                     }
-                    <br />
+                    </p>
+                    <p>
                     {
-                        ([this.consistencyScores()[0]] > 50 &&
+                        ([this.consistencyScores()[0]] >= 85 &&
                             "Your sleep times have been pretty consistant, which means you are maintaining a good circadian rhythm") ||
-                        ([this.consistencyScores()[0]] <= 50 &&
-                            "Your sleep times have not been consistant. This can make it more difficult to fall asleep at a regular time")
+                        ([this.consistencyScores()[0]] < 85 &&
+                            "Your sleep times have not been too consistant. This can make it more difficult to fall asleep at a regular time")
                     }
+                    </p>
                 </div>
             </div >
         )

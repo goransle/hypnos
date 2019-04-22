@@ -16,6 +16,16 @@ header{
   padding-left: 1em;
 }
 
+#analysis p{
+  text-align: left;
+  background-color: lightskyblue;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 1.25em;
+  line-height: 1.25em;
+  padding: 0.25em;
+}
+
 .App{
   padding-bottom: 60px;
 }
@@ -184,9 +194,9 @@ form input[type="submit"] {
   font-weight: bold;
   text-align: center
 } */
-.history td {
+/* .history td {
   margin: 1em;
-}
+} */
 
 @keyframes App-logo-spin {
   from {
