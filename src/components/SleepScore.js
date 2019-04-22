@@ -40,22 +40,22 @@ export default class SleepScore extends Component {
             if (minutes < 0) minutes = - minutes
             console.log(minutes)
 
-            if (Number(minutes) <= 10) {
+            if (Number(minutes) <= 30) {
                 return 100
             }
-            if (Number(minutes) <= 20) {
+            if (Number(minutes) <= 45) {
                 return 85
             }
-            if (Number(minutes) <= 30) {
+            if (Number(minutes) <= 60) {
                 return 75
             }
-            if (Number(minutes) <= 50) {
+            if (Number(minutes) <= 75) {
                 return 50
             }
-            if (Number(minutes) <= 75) {
+            if (Number(minutes) <= 90) {
                 return 40
             }
-            if (Number(minutes) > 75) {
+            if (Number(minutes) > 105) {
                 return 25
             }
             return 10
@@ -75,7 +75,7 @@ export default class SleepScore extends Component {
                     <h3>Analysis</h3>
                     {
                         ([this.durationScores()[0]] > 75 &&
-                            "You slept for at least 7 hours, which is associated with many benefits") ||
+                            "You slept for at least 7 hours, which is great!") ||
                         ([this.durationScores()[0]] <= 50 &&
                             "You slept for less than 6 hours, which is less than recommended.") ||
                         ("Your sleep duration was adequate")
@@ -83,7 +83,7 @@ export default class SleepScore extends Component {
                     <br />
                     {
                         ([this.ratingScores()[0]] > 75 &&
-                            "You reported feeling good, which is indicative of quality sleep.") ||
+                            "You reported feeling good, which is indicative of good quality sleep.") ||
                         ([this.ratingScores()[0]] <= 50 &&
                             "You reported feeling bad, which is indicative of worse quality sleep.") ||
                         ("You reported feeling OK")
@@ -91,9 +91,9 @@ export default class SleepScore extends Component {
                     <br />
                     {
                         ([this.consistencyScores()[0]] > 50 &&
-                            "Your sleep midpoint has been pretty consistant, which means you are maintaining a good circadian rhythm") ||
+                            "Your sleep times have been pretty consistant, which means you are maintaining a good circadian rhythm") ||
                         ([this.consistencyScores()[0]] <= 50 &&
-                            "Your sleep midpoint has not been consistant. This can make it more difficult to fall asleep at a regular time")
+                            "Your sleep times have not been consistant. This can make it more difficult to fall asleep at a regular time")
                     }
                 </div>
             </div >

@@ -166,7 +166,7 @@ class Logging extends Component {
           </div>
         </div>
         <div className="form-group">
-          <label htmlFor="">Did you wake up during your sleep without easily falling asleep again?</label>
+          <label htmlFor="">Did you wake up during the night without easily being able to sleep again?</label>
           <br />
           <div className="btn-group" data-toggle="buttons">
             <button
