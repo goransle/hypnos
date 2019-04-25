@@ -73,31 +73,49 @@ export default function SleepGauge(props) {
 
         chart: {
             type: 'solidgauge',
-            height: '100%',
+            height: '110%',
             events: {
-                render: renderIcons
+                render: (renderIcons,
+                function() {
+                    let series = this.series
+                    let sum = 0
+                    for(let i = 0; i < series.length; i++) {
+                      if(series[i].visible){
+                        for(let j = 0; j < series[i].data.length; j++) {
+                          sum += series[i].data[j].y
+                        }
+                      }
+                    }
+                  this.title.update({text: `Total <br><span style="font-size:2em; color: {point.color}; font-weight: bold">${Number(sum/3).toFixed(0)}</span>`}, false, false) 
+                  })
             }
         },
 
         title: {
-            text: null,
-            style: {
-                fontSize: '24px'
-            }
-        },
-
-        tooltip: {
-            borderWidth: 0,
-            backgroundColor: 'none',
-            shadow: false,
+            text: "",
             style: {
                 fontSize: '16px'
             },
-            pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}%</span>',
+            align: "center",
+            verticalAlign: "middle"
+        },
+
+        tooltip: {
+            useHTML: true,
+            borderWidth: 1,
+            borderRadius: 25,
+            backgroundColor: 'white',
+            shadow: false,
+            style: {
+                fontSize: '16px',
+                borderRadius:'50%',
+                width: '250px'
+            },
+            pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}</span>',
             positioner: function (labelWidth) {
                 return {
                     x: (this.chart.chartWidth - labelWidth) / 2,
-                    y: (this.chart.plotHeight / 2) + 15
+                    y: (this.chart.plotHeight / 2) - 15
                 };
             }
         },
@@ -133,7 +151,7 @@ export default function SleepGauge(props) {
             min: 0,
             max: 100,
             lineWidth: 0,
-            tickPositions: []
+            tickPositions: [0, 25, 50, 75, 100]
         },
 
         plotOptions: {

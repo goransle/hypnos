@@ -85,7 +85,7 @@ export default class SleepScore extends Component {
                         ([this.ratingScores()[0]] > 75 &&
                             "You reported feeling good, which is indicative of good quality sleep.") ||
                         ([this.ratingScores()[0]] <= 50 &&
-                            "You reported feeling bad, which is indicative of worse quality sleep.") ||
+                            "You reported feeling bad, which may indicate that your sleep was not as restorative as it could be.") ||
                         ("You reported feeling OK")
                     }
                     </p>

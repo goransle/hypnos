@@ -92,14 +92,23 @@ export default function Graphs(props) {
       reversed: true,
       categories: props.days
         .filter(day => day.sleepDuration !== undefined && day.sleepDuration > 0)
-        .map(({ date }) => ([Moment(date).format("DD MMM")]))    },
+        .map(({ date }) => ([Moment(date).format("DD MMM")]))
+    },
     yAxis: {
       type: 'datetime',
+      title: {text: null},
+      max: Moment({hour: 10}).utc(true),
+      min: Moment({hour: 18}).subtract(24, "hours").utc(true),
+      tickInterval: 3600,
+      pointInterval: 1,
+      dateTimeLabelFormats: {
+        day: '%H:%M',
+        hour: '%H:%M',
+      },
       labels: {
         formatter: function () {
           var label = this.axis.defaultLabelFormatter.call(this);
-
-          return Moment(label, "HH:mm").add(2, "hours").utc(true).format("HH:mm");
+          return Moment(label, "HH:mm").add(2, "hours").format("HH");
         }
       }
     },

@@ -6,17 +6,20 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 body {
-  text-align: center;
   background-color: snow;
 }
-header{
+form{
+  text-align: center
+}
+header {
   text-align: left;
   padding-left: 1em;
 }
 
-#analysis p{
+#analysis p {
   text-align: left;
   background-color: lightskyblue;
   border-radius: 5px;
@@ -26,7 +29,7 @@ header{
   padding: 0.25em;
 }
 
-.App{
+.App {
   padding-bottom: 60px;
 }
 
@@ -68,7 +71,7 @@ input[type="range"] {
   width: 100%;
   max-width: 450px;
   margin: 0 auto;
-  background-color: var(--main-bg-color)
+  background-color: var(--main-bg-color);
 }
 input[type="range"]:focus {
   outline: none;
@@ -197,6 +200,11 @@ form input[type="submit"] {
 /* .history td {
   margin: 1em;
 } */
+
+.highcharts-tooltip span{
+  background-color: white;
+  text-align: center;
+}
 
 @keyframes App-logo-spin {
   from {
