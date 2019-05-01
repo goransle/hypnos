@@ -32,10 +32,7 @@ class App extends Component {
 
   componentDidMount() {
     this.onChange(this.state.selectedDay);
-  }
-
-  componentDidUpdate(prevState) {
-    console.log(prevState);
+    console.log("loaded")
   }
 
   onChange = date => {
@@ -61,7 +58,7 @@ class App extends Component {
         <div className="App container">
           <Route
             exact path="/"
-            render={props => (
+            render={() => (
               <React.Fragment>
                 <Days
                   today={this.state.today}
@@ -72,12 +69,11 @@ class App extends Component {
                   day={this.state.selectedDay}
                   data={this.state.logData}
                   inputHandler={this.inputHandler}
-                  // state={props}
                 />
               </React.Fragment>
             )}
           />
-          <Route exact path="/history" component={History} />
+          <Route exact path="/history" render={() => (<History />)} />
         </div>
       </Router>
     );

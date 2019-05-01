@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import LogRocket from 'logrocket';
-LogRocket.init('qtjw9w/hypnos');
+// import LogRocket from 'logrocket';
+// LogRocket.init('qtjw9w/hypnos');
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
