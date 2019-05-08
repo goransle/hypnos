@@ -11,8 +11,8 @@
 body {
   background-color: snow;
 }
-form{
-  text-align: center
+form {
+  text-align: center;
 }
 header {
   text-align: left;
@@ -157,17 +157,32 @@ form input[type="submit"] {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 25%;
+}
+.pastWeek ol::-webkit-scrollbar {
+  display: none;
 }
 .pastWeek li {
   display: inline-block;
-  width: 2.5em;
+  max-width: 2.5em;
   height: 2.5em;
   line-height: 2.5em;
-  margin: 0.25em;
+  margin-left: 0.5em;
   text-align: center;
   border: 1px;
   border-radius: 50%;
   user-select: none;
+  flex-grow: 0;
+  flex-shrink: 0;
+  align-content: space-around;
+  flex-basis: 100%;
+  scroll-snap-align: start;
+}
+.container {
+  padding: 0;
 }
 
 .pastWeek li {
@@ -178,6 +193,11 @@ form input[type="submit"] {
 }
 .pastWeek .selected {
   background-color: #0074d9;
+}
+.pastWeek .unclickable {
+  background-color: #dddddd85;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .chart {
@@ -201,7 +221,7 @@ form input[type="submit"] {
   margin: 1em;
 } */
 
-.highcharts-tooltip span{
+.highcharts-tooltip span {
   background-color: white;
   text-align: center;
 }

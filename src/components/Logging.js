@@ -1,5 +1,5 @@
-import React, { Component, useRef } from "react";
-import TimePicker from "react-time-picker";
+import React, { Component } from "react";
+//import TimePicker from "react-time-picker";
 import ClockInput from "./ClockInput";
 import Moment from "moment";
 
@@ -42,12 +42,13 @@ class Logging extends Component {
       this.setState({ waketime: this.timeString(`${hours}:${minutes}`) });
   };
   handleCircleBedtime = e => {
+    var hours, minutes;
     if (e > 1) {
-      var hours = Moment.duration(-(1 - e) * 12, "hours").hours();
-      var minutes = Moment.duration(e * 12, "hours").minutes();
+      hours = Moment.duration(-(1 - e) * 12, "hours").hours();
+      minutes = Moment.duration(e * 12, "hours").minutes();
     } else {
-      var hours = Moment.duration(e * 12, "hours").hours();
-      var minutes = Moment.duration(e * 12, "hours").minutes();
+      hours = Moment.duration(e * 12, "hours").hours();
+      minutes = Moment.duration(e * 12, "hours").minutes();
     }
     if (!isNaN(e))
       this.setState({ bedtime: this.timeString(`${hours}:${minutes}`) });
@@ -84,14 +85,14 @@ class Logging extends Component {
       <form onSubmit={this.onSubmit}>
         <div className="form-group" style={{ maxWidth: "500px", margin: "0 auto" }}>
           <div className="input-group-lg mb-3" style={{ maxWidth: "500px", margin: "0 auto" }}>
-            <label style={{ marginLeft:"1em", float: "left", fontSize: "1.25em" }} className="input">Bedtime <br /> {this.state.bedtime}</label>
+            <label style={{ marginLeft: "1em", float: "left", fontSize: "1.25em" }} className="input">Bedtime <br /> {this.state.bedtime}</label>
             {/* <TimePicker
               name="bedtime"
               value={this.state.bedtime}
               disableClock={true}
               locale={"en-GB"}
             /> */}
-            <label style={{marginRight:"1em", float: "right", fontSize: "1.25em" }}>Woke up <br /> {this.state.waketime}</label>
+            <label style={{ marginRight: "1em", float: "right", fontSize: "1.25em" }}>Woke up <br /> {this.state.waketime}</label>
             {/* <TimePicker
               type="time"
               name="waketime"
@@ -111,7 +112,7 @@ class Logging extends Component {
         </div>
         <div className="form-group">
           <label htmlFor="rating">How did you feel this morning?</label>
-          <br/>
+          <br />
           <label htmlFor="rating">{
             (this.state.rating === "1" && "Very bad")
             || (this.state.rating === "2" && "Not great")
