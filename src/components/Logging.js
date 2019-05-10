@@ -199,7 +199,7 @@ class Logging extends Component {
           <input
             type="submit"
             className={`btn btn-primary btn-lg ${this.state.saved ? 'saved' : ''}`}
-            value="Save"
+            value={this.state.saved ? "Save ✔" : "Save"}
           />
         </div>
       </form>

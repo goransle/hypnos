@@ -224,9 +224,10 @@ form input[type="submit"] {
 }
 
 .saved {
-  animation: rotate 1s;
+  animation: saved 1s;
+  animation-fill-mode: forwards;
 }
-@keyframes rotate {
+@keyframes saved {
   from {
     transform: rotate(0deg);
   }
