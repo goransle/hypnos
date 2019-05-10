@@ -55,7 +55,7 @@ class App extends Component {
     return (
       <Router>
         <Header />
-        <div className="App container">
+        <div className="App">
           <Route
             exact path="/"
             render={() => (

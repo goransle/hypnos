@@ -41,7 +41,6 @@ class Days extends Component {
         <ol>
           {days.map((day, index) => {
             var classes = [];
-            var ref = null
             if (this.state.log && this.state.log.includes(day)) {
               classes.push("logged")
             }

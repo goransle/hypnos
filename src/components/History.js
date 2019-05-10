@@ -67,7 +67,7 @@ export default class History extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="container">
         <SleepScore days={this.state.days} />
         <h3>Last 30 days</h3>
         <table className="history table table-responsive table-hover">

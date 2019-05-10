@@ -181,9 +181,6 @@ form input[type="submit"] {
   flex-basis: 100%;
   scroll-snap-align: start;
 }
-.container {
-  padding: 0;
-}
 
 .pastWeek li {
   background-color: #dddddd;
@@ -224,6 +221,21 @@ form input[type="submit"] {
 .highcharts-tooltip span {
   background-color: white;
   text-align: center;
+}
+
+.saved {
+  animation: rotate 1s;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes App-logo-spin {

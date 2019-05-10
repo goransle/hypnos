@@ -11,7 +11,8 @@ class Logging extends Component {
       waketime: "",
       rating: 3,
       troubleSleeping: 0,
-      wakeDuring: 0
+      wakeDuring: 0,
+      saved: false
     };
   }
   componentDidUpdate(prevProps) {
@@ -19,7 +20,7 @@ class Logging extends Component {
       this.setState({
         bedtime: this.timeString(this.props.data.bedtime),
         waketime: this.timeString(this.props.data.waketime),
-        rating: this.props.data.rating,
+        rating: Number(this.props.data.rating),
         troubleSleeping: this.props.data.troubleSleeping,
         wakeDuring: this.props.data.wakeDuring
       });
@@ -27,7 +28,7 @@ class Logging extends Component {
   }
   handleChange = e => {
     e.preventDefault();
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: Number(e.target.value) });
   };
 
   timeString = string => {
@@ -36,8 +37,8 @@ class Logging extends Component {
 
   handleCircleWaketime = e => {
     console.log(e * 12);
-    var hours = Moment.duration(e * 12, "hours").hours();
-    var minutes = Moment.duration(e * 12, "hours").minutes();
+    let hours = Moment.duration(e * 12, "hours").hours();
+    let minutes = Moment.duration(e * 12, "hours").minutes();
     if (!isNaN(e))
       this.setState({ waketime: this.timeString(`${hours}:${minutes}`) });
   };
@@ -77,6 +78,8 @@ class Logging extends Component {
   };
 
   onSubmit = form => {
+    form.preventDefault()
+    this.setState({ saved: true })
     this.props.inputHandler(this.state);
   };
 
@@ -114,11 +117,11 @@ class Logging extends Component {
           <label htmlFor="rating">How did you feel this morning?</label>
           <br />
           <label htmlFor="rating">{
-            (this.state.rating === "1" && "Very bad")
-            || (this.state.rating === "2" && "Not great")
-            || (this.state.rating === "3" && "OK")
-            || (this.state.rating === "4" && "Pretty good")
-            || (this.state.rating === "5" && "Awesome")
+            (this.state.rating === 1 && "Very bad")
+            || (this.state.rating === 2 && "Not great")
+            || (this.state.rating === 3 && "OK")
+            || (this.state.rating === 4 && "Pretty good")
+            || (this.state.rating === 5 && "Awesome")
           }
           </label>
           <input
@@ -195,7 +198,7 @@ class Logging extends Component {
         <div className="form-group">
           <input
             type="submit"
-            className={"btn btn-primary btn-lg"}
+            className={`btn btn-primary btn-lg ${this.state.saved ? 'saved' : ''}`}
             value="Save"
           />
         </div>
