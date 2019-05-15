@@ -52,8 +52,8 @@ export default class History extends Component {
       })
       .then(() => {
         const average = arr => arr.reduce((p, c) => Number(p) + Number(c), 0) / arr.length;
-        const averageRating = average(ratings).toFixed(1);
-        const averageDuration = average(hoursSlept).toFixed(1)
+        const averageRating = average(ratings.filter(value => value >= 0)).toFixed(1);
+        const averageDuration = average(hoursSlept.filter(value => value !== 0)).toFixed(1)
         var dayObjects = days.map((day, i) => {
           return { "date": day, sleepDuration: Number(hoursSlept[i]), rating: ratings[i], midpoint: midpoints[i], time: times[i] }
         })
@@ -69,6 +69,7 @@ export default class History extends Component {
     return (
       <div className="container">
         <SleepScore days={this.state.days} />
+        <Graphs days={this.state.days} />
         <h3>Last 30 days</h3>
         <table className="history table table-responsive table-hover">
           <thead className="thead">
@@ -92,7 +93,6 @@ export default class History extends Component {
             }
           </tbody>
         </table>
-        <Graphs days={this.state.days} />
       </div>
     );
   }
