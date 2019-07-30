@@ -17,7 +17,11 @@ var defaultData = {
   waketime: "07:25",
   rating: 3,
   troubleSleeping: 0,
-  wakeDuring: 0
+  wakeDuring: 0,
+  saved: false,
+  caffeine: 1,
+  exercise: 1,
+  stress: 1
 };
 
 class App extends Component {
