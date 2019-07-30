@@ -12,7 +12,10 @@ class Logging extends Component {
       rating: 3,
       troubleSleeping: 0,
       wakeDuring: 0,
-      saved: false
+      saved: false,
+      caffeine: 1,
+      exercise: 1,
+      stress: 1
     };
   }
   componentDidUpdate(prevProps) {
@@ -22,7 +25,10 @@ class Logging extends Component {
         waketime: this.timeString(this.props.data.waketime),
         rating: Number(this.props.data.rating),
         troubleSleeping: this.props.data.troubleSleeping,
-        wakeDuring: this.props.data.wakeDuring
+        wakeDuring: this.props.data.wakeDuring,
+        caffeine: this.props.data.caffeine,
+        exercise: this.props.data.exercise,
+        stress: this.props.data.stress
       });
     }
   }
@@ -194,6 +200,114 @@ class Logging extends Component {
               Yes
             </button>
           </div>
+        </div>
+
+        <div className="form-group accordion" id="accordionExample">
+          <div className="card">
+            <div className="card-header" id="headingOne">
+              <h2 className="mb-0">
+                <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Additional data
+                </button>
+              </h2>
+            </div>
+
+            <div id="collapseOne" className="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div className="card-body">
+                <div className="form-group">
+                  <label htmlFor="caffeine">Caffeine</label>
+                  <br />
+                  <label htmlFor="caffeine">{
+                    (this.state.caffeine === 1 && "None")
+                    || (this.state.caffeine === 2 && "A little")
+                    || (this.state.caffeine === 3 && "Some")
+                    || (this.state.caffeine === 4 && "A lot")
+                    || (this.state.caffeine === 5 && "Too much")
+                  }
+                  </label>
+                  <input
+                    name="caffeine"
+                    type="range"
+                    value={this.state.caffeine}
+                    onChange={this.handleChange}
+                    max="5"
+                    min="1"
+                    step="1"
+                    list="steplist"
+                    className="form-control-range"
+                  />
+                  <datalist id="steplist">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </datalist>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="exercise">Exercise</label>
+                  <br />
+                  <label htmlFor="exercise">{
+                    (this.state.exercise === 1 && "None")
+                    || (this.state.exercise === 2 && "A little")
+                    || (this.state.exercise === 3 && "Some")
+                    || (this.state.exercise === 4 && "A lot")
+                    || (this.state.exercise === 5 && "Too much")
+                  }
+                  </label>
+                  <input
+                    name="exercise"
+                    type="range"
+                    value={this.state.exercise}
+                    onChange={this.handleChange}
+                    max="5"
+                    min="1"
+                    step="1"
+                    list="steplist"
+                    className="form-control-range"
+                  />
+                  <datalist id="steplist">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </datalist>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="stress">Stress</label>
+                  <br />
+                  <label htmlFor="stress">{
+                    (this.state.stress === 1 && "None")
+                    || (this.state.stress === 2 && "A little")
+                    || (this.state.stress === 3 && "Some")
+                    || (this.state.stress === 4 && "A lot")
+                    || (this.state.stress === 5 && "Too much")
+                  }
+                  </label>
+                  <input
+                    name="stress"
+                    type="range"
+                    value={this.state.stress}
+                    onChange={this.handleChange}
+                    max="5"
+                    min="1"
+                    step="1"
+                    list="steplist"
+                    className="form-control-range"
+                  />
+                  <datalist id="steplist">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </datalist>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <div className="form-group">
           <input
