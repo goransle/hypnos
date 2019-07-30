@@ -227,6 +227,11 @@ form input[type="submit"] {
   animation: saved 1s;
   animation-fill-mode: forwards;
 }
+
+.gauge .hc-cat-title {
+  font-size: 1.25em;
+  text-align: left;
+}
 @keyframes saved {
   from {
     transform: rotate(0deg);

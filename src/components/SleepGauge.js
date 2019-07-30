@@ -12,35 +12,48 @@ HC_bulletGraph(Highcharts)
 
 
 export default function SleepGauge(props) {
+    var plotBands = [{
+        from: 0,
+        to: 30,
+        color: '#ff4136'
+    }, {
+        from: 30,
+        to: 60,
+        color: '#FF851B'
+    }, {
+        from: 60,
+        to: 80,
+        color: '#01FF70'
+    },
+    {
+        from: 80,
+        to: 9e9,
+        color: '#2ECC40'
+    }]
+
+    var chart = {
+        inverted: true,
+        marginLeft: 0,
+        type: 'bullet',
+        useHTML: true
+    };
+
     var durationGauge = {
-        chart: {
-            inverted: true,
-            marginLeft: 100,
-            type: 'bullet'
-        },
+        chart: chart,
         legend: {
             enabled: false
         },
         title: {
-            text: ''
+            text: "Duration"
         },
         xAxis: {
-            categories: ['<span class="hc-cat-title">Duration</span>']
+            categories: ['<span class="hc-cat-title">Duration <br/>' + props.durationScore + '</span>'],
+            labels: {
+                useHTML: true
+            }
         },
         yAxis: {
-            plotBands: [{
-                from: 0,
-                to: 50,
-                color: '#666'
-            }, {
-                from: 50,
-                to: 75,
-                color: '#999'
-            }, {
-                from: 75,
-                to: 9e9,
-                color: '#bbb'
-            }],
+            plotBands: plotBands,
             title: null,
             gridLineWidth: 0,
             max: 100
@@ -49,7 +62,8 @@ export default function SleepGauge(props) {
             data: [{
                 target: 101,
                 y: Number(props.durationScore)
-            }]
+            }],
+            color: 'blue'
         }],
         tooltip: {
             pointFormat: '<b>{point.y}</b> (of 100)'
@@ -69,34 +83,21 @@ export default function SleepGauge(props) {
         },
     };
     var ratingGauge = {
-        chart: {
-            inverted: true,
-            marginLeft: 100,
-            type: 'bullet'
-        },
+        chart: chart,
         legend: {
             enabled: false
         },
         title: {
-            text: ''
+            text: 'Rating'
         },
         xAxis: {
-            categories: ['<span class="hc-cat-title">Sleep quality</span>']
+            categories: ['<span class="hc-cat-title">Rating <br/>' + props.ratingScore + '</span>'],
+            labels: {
+                useHTML: true
+            }
         },
         yAxis: {
-            plotBands: [{
-                from: 0,
-                to: 50,
-                color: '#666'
-            }, {
-                from: 50,
-                to: 75,
-                color: '#999'
-            }, {
-                from: 75,
-                to: 9e9,
-                color: '#bbb'
-            }],
+            plotBands: plotBands,
             title: null,
             gridLineWidth: 0,
             max: 100
@@ -105,7 +106,8 @@ export default function SleepGauge(props) {
             data: [{
                 target: 101,
                 y: Number(props.ratingScore)
-            }]
+            }],
+            color: "blue"
         }],
         tooltip: {
             pointFormat: '<b>{point.y}</b> (of 100)'
@@ -126,34 +128,21 @@ export default function SleepGauge(props) {
     };
 
     var consistencyGauge = {
-        chart: {
-            inverted: true,
-            marginLeft: 100,
-            type: 'bullet'
-        },
+        chart: chart,
         legend: {
             enabled: false
         },
         title: {
-            text: ''
+            text: 'Consistency'
         },
         xAxis: {
-            categories: ['<span class="hc-cat-title">Consistency</span>']
+            categories: ['<span class="hc-cat-title">Consistency <br/>' + props.consistencyScore + '</span>'],
+            labels: {
+                useHTML: true
+            }
         },
         yAxis: {
-            plotBands: [{
-                from: 0,
-                to: 50,
-                color: '#666'
-            }, {
-                from: 50,
-                to: 75,
-                color: '#999'
-            }, {
-                from: 75,
-                to: 9e9,
-                color: '#bbb'
-            }],
+            plotBands: plotBands,
             title: null,
             gridLineWidth: 0,
             max: 100
@@ -162,7 +151,8 @@ export default function SleepGauge(props) {
             data: [{
                 target: 101,
                 y: Number(props.consistencyScore)
-            }]
+            }],
+            color: "blue"
         }],
         tooltip: {
             pointFormat: '<b>{point.y}</b> (of 100)'
@@ -182,25 +172,28 @@ export default function SleepGauge(props) {
         }
     };
 
-
+    var style = {
+        height: "125px"
+    }
 
     return (
         <div>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={durationGauge}
-                containerProps={{ className: 'gauge', style: { height: "100px" } }}
+                containerProps={{ className: 'gauge', style: style }}
             />
             <HighchartsReact
                 highcharts={Highcharts}
                 options={ratingGauge}
-                containerProps={{ className: 'gauge', style: { height: "100px" } }}
+                containerProps={{ className: 'gauge', style: style }}
             />
             <HighchartsReact
                 highcharts={Highcharts}
                 options={consistencyGauge}
-                containerProps={{ className: 'gauge', style: { height: "100px" } }}
+                containerProps={{ className: 'gauge', style: style }}
             />
+            <h4>Total: {Number((Number(props.consistencyScore) + Number(props.ratingScore) + Number(props.durationScore)) / 3).toFixed(0)} </h4>
         </div>
     )
 }
