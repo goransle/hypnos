@@ -8,6 +8,7 @@
     "@types/node": "^12.7.5",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^4.3.5",
     "apexcharts": "^2.6.0",
     "highcharts": "^7.1.0",
     "highcharts-react-official": "^2.1.3",
