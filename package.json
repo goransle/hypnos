@@ -22,7 +22,7 @@
     "react-dom": "^16.8.4",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^2.1.8",
+    "react-scripts": "3.0.0",
     "react-time-picker": "^3.3.0",
     "reaviz": "^1.0.2",
     "typescript": "^3.6.3"
