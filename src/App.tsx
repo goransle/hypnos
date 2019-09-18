@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Moment from "moment";
+import moment from "moment";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -10,8 +10,10 @@ import Header from "./components/Header";
 import History from "./components/History";
 
 import localForage from "localforage";
+import { Props } from "react-circular-input/dist/CircularTrack";
 
-const today = Moment();
+let today = moment();
+
 var defaultData = {
   bedtime: "11:00",
   waketime: "07:25",
@@ -24,8 +26,14 @@ var defaultData = {
   stress: 1
 };
 
-class App extends Component {
-  constructor(props) {
+interface State {
+  today: any,
+  selectedDay: string,
+  logData: object
+}
+
+class App extends Component <Props, State>{
+  constructor(props:Props) {
     super(props);
     this.state = {
       today: today,
@@ -39,12 +47,12 @@ class App extends Component {
     console.log("loaded")
   }
 
-  onChange = date => {
+  onChange = (date:string) => {
     this.setState({ selectedDay: date });
     //setting default data
     // this.setState({ logData: defaultData });
     //gets stuff from storage
-    localForage.getItem(date).then(item => {
+    localForage.getItem(date).then((item:object) => {
       if (item) {
         this.setState({ logData: item });
       } else this.setState({ logData: defaultData });
