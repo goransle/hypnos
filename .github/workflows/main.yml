@@ -12,4 +12,4 @@ jobs:
         with:
           project: project
           column: Backlog
-          repo-token: ${{ secrets.GITHUB_TOK }}
+          repo-token: ${{ secrets.GH_TOK }}
